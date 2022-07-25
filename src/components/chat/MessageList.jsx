@@ -1,0 +1,45 @@
+import React, { useEffect } from "react";
+import { SwrGetData } from "../../utils/SwrGetData";
+import MessageItem from "./MessageItem";
+import Loading from "../common/Loading";
+import styled from "styled-components";
+
+const MessageListWrapper = styled.div`
+  padding: 1rem 0.5rem 0.3rem 1rem;
+  display: flex;
+  flex-direction: column;
+`;
+
+function MessageList(props) {
+  const { uuid, changeMessageList, messageList } = props;
+  const { data, isLoading, isError } = SwrGetData("/messages/" + uuid);
+
+  useEffect(() => {
+    if (data) {
+      changeMessageList(data);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
+  if (isLoading) return <Loading />;
+  if (isError) return <div>failed to load</div>;
+
+  return (
+    <>
+      <MessageListWrapper>
+        {messageList.map((r, index) => (
+          <MessageItem
+            key={r.id}
+            id={r.id}
+            message={r.message}
+            senderNm={r.senderNm}
+            senderId={r.senderId}
+            type={r.type}
+          ></MessageItem>
+        ))}
+      </MessageListWrapper>
+    </>
+  );
+}
+
+export default React.memo(MessageList);

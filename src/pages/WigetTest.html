@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+ 
+		</style>
+
+		<!-- JQuery -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js">
+		</script>
+		<script>
+			// http://www.zacwitte.com/getting-wikipedia-summary-from-the-page-id
+			function getAreaMetaInfo(lang, page_id, func) {
+			  $.ajax({
+				url: 'http://' + lang + '.wikipedia.org/w/api.php',
+				data: {
+				  action:'query',
+				  pageids:page_id,
+				  prop:"images",
+				  format:'json'
+				},
+				dataType:'jsonp',
+				success: function(data) {
+				  var images = data.query.pages[page_id].images;
+				  var image_files = [];
+				  
+				  for(var image_idx in images)
+				  {
+					image_files.push(images[image_idx].title);
+				  }
+				
+				  title = data.query.pages[page_id].title.replace(' ','_');
+				  $.ajax({
+					url: 'http://' + lang + '.wikipedia.org/w/api.php',
+					data: {
+					  action: 'parse',
+					  prop: 'text',
+					  page: title,
+					  format:'json'
+					},
+					dataType:'jsonp',
+					success: function(data) {
+					  wikipage = $("<div>"+data.parse.text['*']+"<div>").children('p:first');
+					  wikipage.find('sup').remove();
+					  wikipage.find('a').each(function() {
+						$(this)
+						  .attr('href', 'http://' + lang + '.wikipedia.org'+$(this).attr('href'));
+					  });
+					  
+					  func({
+						"title": title,
+						"html": wikipage,
+						"article_url": 'http://' + lang + '.wikipedia.org/wiki/' + title,
+						"images" : image_files
+					  });
+
+					}
+				  });
+				}
+			  });
+			}
+			
+			function display_data(result)
+			{
+				console.log(result);
+				//console.log(result.html.html());
+				$("#results").empty();
+				$("#results").append(result.html);
+			}
+			
+			function get_info(lang, title, func)
+			{
+				console.log(lang, title);
+				$.ajax({
+					url: 'http://' + lang + '.wikipedia.org/w/api.php',
+					data: {
+					  action: 'query',
+					  prop: 'info',
+					  titles: title,
+					  format:'json'
+					},
+					dataType:'jsonp',
+					success: function(data) {
+
+					  
+					  func(data);
+
+					}
+				  });
+			}
+			
+			//getAreaMetaInfo_Wikipedia("ru", 10000, display_data);
+			//console.log(getAreaMetaInfo_Wikipedia("en", 49728));
+			
+			
+		</script>
+	</head>
+	<body>
+		<form id="form2" action="#">
+			<input type="text" id="lang2" />
+			<input type="text" id="title" />
+			<input type="submit" value="OK" />
+		</form>
+	
+		<form id="form" action="#">
+			<input type="text" id="lang" />
+			<input type="text" id="pageid" />
+			<input type="submit" value="OK" />
+		</form>
+		
+		<div id="results">
+			
+		</div>
+	
+		
+		<script>
+		$("#form").submit(function(event) {
+				getAreaMetaInfo($("#lang").val(), $("#pageid").val(), display_data)
+				event.stopPropagation();
+			});
+		$("#form2").submit(function(event) {
+				get_info($("#lang2").val(), $("#title").val(), function(data) { 
+					for(page_idx in data.query.pages)
+					{
+						var pageId = data.query.pages[page_idx].pageid;
+						$("#pageid").val(pageId);
+						$("#lang").val($("#lang2").val());
+					}
+				})
+				event.stopPropagation();
+			});
+		</script>
+	</body>
+</html>
