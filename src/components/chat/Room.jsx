@@ -89,16 +89,19 @@ const RoomLastMessage = styled.div`
 `;
 
 function Room(props) {
-  const { setConnectedRoomUUID } = useChatStore();
+  const { setConnectedRoom, connectedRoom } = useChatStore();
 
   const onRoomClick = () => {
-    setConnectedRoomUUID(props.uuid);
-    props.onToggle(props.id);
+    setConnectedRoom(props);
+    // props.onToggle(props.id);
   };
 
   return (
     <>
-      <RoomWrapper onClick={() => onRoomClick()} selected={props.selected}>
+      <RoomWrapper
+        onClick={() => onRoomClick()}
+        selected={props.id === connectedRoom.id ? true : false}
+      >
         {props.selected}
         <SqureTextBox
           boxSizeWidth="1.5rem"

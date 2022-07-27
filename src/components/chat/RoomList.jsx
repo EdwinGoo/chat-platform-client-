@@ -68,15 +68,15 @@ function RoomList() {
     setRooms(data);
   }, [data]);
 
-  const onToggle = useCallback((id) => {
-    setRooms((rooms) =>
-      rooms.map((room) =>
-        room.id === id
-          ? { ...room, selected: true }
-          : { ...room, selected: false }
-      )
-    );
-  }, []);
+  // const onToggle = useCallback((id) => {
+  //   setRooms((rooms) =>
+  //     rooms.map((room) =>
+  //       room.id === id
+  //         ? { ...room, selected: true }
+  //         : { ...room, selected: false }
+  //     )
+  //   );
+  // }, []);
 
   if (error) return <div>failed to load</div>;
 
@@ -96,7 +96,7 @@ function RoomList() {
                 createDate={room.createDate}
                 isClosed={room.isClosed}
                 uuid={room.roomUuid}
-                onToggle={onToggle}
+                // onToggle={onToggle}
                 selected={room.selected}
                 lastMessage={room.lastMessage}
                 lastMessageDate={room.lastMessageDate}

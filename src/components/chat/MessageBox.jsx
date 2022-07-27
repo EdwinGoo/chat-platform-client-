@@ -85,8 +85,8 @@ const client = new Client({
 });
 
 function MessageBox() {
-  const { connectedRoomUUID, setConnectedRoomUUID } = useChatStore();
-  const [prvRoomUUID, setPrvRoomUUID] = useState("");
+  const { connectedRoom, setConnectedRoom } = useChatStore();
+  const [prvRoom, setPrvRoom] = useState("");
   const [isJoined, setIsJoined] = useState(false);
   const [messageList, setMessageList] = useState([]);
   const scrollRef = useRef();
@@ -102,6 +102,7 @@ function MessageBox() {
       id: rcvMessage.id,
       message: rcvMessage.message,
       senderId: rcvMessage.senderId,
+      type: rcvMessage.type,
     };
     setMessageList((messageList) => messageList.concat(newMessage));
   }, []);
@@ -117,43 +118,44 @@ function MessageBox() {
   }, [messageList]);
 
   const onClickJoinButton = () => {
-    if (connectedRoomUUID === "") {
+    if (connectedRoom === "") {
       alert("입장할 채팅방을 선택해주세요.");
     } else {
+      // publishHandler("", "ENTER");
       setIsJoined(true);
     }
   };
 
   const subscribe = () => {
-    if (client && client.connected && connectedRoomUUID !== "") {
+    if (client && client.connected && connectedRoom !== "") {
       // console.log("function#-subscribe:" + connectedRoomUUID);
       client.subscribe(
-        subURL + connectedRoomUUID,
+        subURL + connectedRoom.uuid,
         (data) => {
           // const newMessage = JSON.parse(data.body).message;
-          console.log(JSON.parse(data.body));
+          // console.log(JSON.parse(data.body));
           onMessageConcat(JSON.parse(data.body));
         },
-        { id: connectedRoomUUID }
+        { id: connectedRoom.uuid }
       );
     }
   };
 
   const unsubscribe = () => {
-    if (client && client.connected && prvRoomUUID !== "") {
+    if (client && client.connected && prvRoom.uuid !== "") {
       // console.log("function#-unsubscribe:" + prvRoomUUID);
-      client.unsubscribe(prvRoomUUID);
+      client.unsubscribe(prvRoom.uuid);
     }
   };
 
-  const publishHandler = (message) => {
+  const publishHandler = (message, type) => {
     if (client != null) {
       if (!client.connected) return;
       client.publish({
         destination: pubURL,
         body: JSON.stringify({
-          roomUuid: connectedRoomUUID,
-          type: "MESSAGE", // 타입 정의해서 어딘가에 두고 사용할 것?
+          roomUuid: connectedRoom.uuid,
+          type: type, // 타입 정의해서 어딘가에 두고 사용할 것?
           senderId: "aet",
           message: message,
           senderNm: "구윤모",
@@ -163,19 +165,19 @@ function MessageBox() {
   };
 
   useEffect(() => {
-    setPrvRoomUUID(connectedRoomUUID);
+    setPrvRoom(connectedRoom);
     setIsJoined(false);
     if (client.connected) {
       unsubscribe();
       subscribe();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [connectedRoomUUID]);
+  }, [connectedRoom]);
 
   useEffect(() => {
     client.activate();
     return () => {
-      setConnectedRoomUUID("");
+      setConnectedRoom("");
       client.deactivate();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -186,9 +188,9 @@ function MessageBox() {
       <MessageBoxWrapper>
         <MessageBoxHeader>HelpBox</MessageBoxHeader>
         <MessageBoxMain ref={scrollRef}>
-          {connectedRoomUUID !== "" ? (
+          {connectedRoom !== "" ? (
             <MessageList
-              uuid={connectedRoomUUID}
+              uuid={connectedRoom.uuid}
               changeMessageList={changeMessageList}
               messageList={messageList}
             />

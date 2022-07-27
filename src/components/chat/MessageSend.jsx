@@ -53,11 +53,12 @@ const MessageSendWrapper = styled.div`
 function MessageSend(props) {
   const [ms, setMs] = useState("");
   const { sendMessage } = props;
+  const messageType = "MESSAGE";
 
   const onSendButtonClick = useCallback(
     (e) => {
       if (ms.replace(/\s| /gi, "").length !== 0) {
-        sendMessage(ms);
+        sendMessage(ms, messageType);
         setMs("");
       }
       e.preventDefault();

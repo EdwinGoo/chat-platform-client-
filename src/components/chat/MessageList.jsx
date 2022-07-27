@@ -13,7 +13,6 @@ const MessageListWrapper = styled.div`
 function MessageList(props) {
   const { uuid, changeMessageList, messageList } = props;
   const { data, isLoading, isError } = SwrGetData("/messages/" + uuid);
-
   useEffect(() => {
     if (data) {
       changeMessageList(data);
