@@ -60,7 +60,7 @@ function RoomList() {
   const [rooms, setRooms] = useState([]);
 
   const { data, error } = useSWR("/chat/rooms", fetcher, {
-    // refreshInterval: 10000, // wow...
+    refreshInterval: 5000, // wow...
     revalidateOnFocus: true,
   });
 
@@ -79,28 +79,31 @@ function RoomList() {
   }, []);
 
   if (error) return <div>failed to load</div>;
-  if (!rooms) return <Loading />;
 
   return (
     <>
       <RoomListWrapper>
         <RoomListHeader>HELP ME!</RoomListHeader>
-        <RoomListItem>
-          {rooms.map((room) => (
-            <Room
-              key={room.id}
-              id={room.id}
-              roomNm={room.roomNm}
-              createDate={room.createDate}
-              isClosed={room.isClosed}
-              uuid={room.roomUuid}
-              onToggle={onToggle}
-              selected={room.selected}
-              lastMessage={room.lastMessage}
-              lastMessageDate={room.lastMessageDate}
-            />
-          ))}
-        </RoomListItem>
+        {!rooms ? (
+          <Loading />
+        ) : (
+          <RoomListItem>
+            {rooms.map((room) => (
+              <Room
+                key={room.id}
+                id={room.id}
+                roomNm={room.roomNm}
+                createDate={room.createDate}
+                isClosed={room.isClosed}
+                uuid={room.roomUuid}
+                onToggle={onToggle}
+                selected={room.selected}
+                lastMessage={room.lastMessage}
+                lastMessageDate={room.lastMessageDate}
+              />
+            ))}
+          </RoomListItem>
+        )}
       </RoomListWrapper>
     </>
   );
