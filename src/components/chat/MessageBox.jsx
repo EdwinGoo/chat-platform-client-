@@ -128,7 +128,7 @@ function MessageBox() {
 
   const subscribe = () => {
     if (client && client.connected && connectedRoom !== "") {
-      // console.log("function#-subscribe:" + connectedRoomUUID);
+      // console.log("function#-subscribe:" + connectedRoom.uuid);
       client.subscribe(
         subURL + connectedRoom.uuid,
         (data) => {
@@ -143,7 +143,7 @@ function MessageBox() {
 
   const unsubscribe = () => {
     if (client && client.connected && prvRoom.uuid !== "") {
-      // console.log("function#-unsubscribe:" + prvRoomUUID);
+      // console.log("function#-unsubscribe:" + prvRoom.uuid);
       client.unsubscribe(prvRoom.uuid);
     }
   };
