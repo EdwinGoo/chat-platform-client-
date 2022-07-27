@@ -88,7 +88,7 @@ function Sidebar() {
             className={({ isActive }) => (isActive ? "link-active" : "link")}
           >
             <MenuBookIcon />
-            <LinkNm>autoanswer</LinkNm>
+            <LinkNm>자동응답</LinkNm>
           </NavLink>
         </RouterWrapper>
       </SidebarWrapper>

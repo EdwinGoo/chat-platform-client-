@@ -11,12 +11,15 @@ const MessageItemWrapper = styled.div.attrs((props) => props)`
   background: none;
   outline: none;
   border: none;
+  text-align : left;
+  max-width:50%;
   ${(props) => {
     if (props.accntId === props.senderId) {
       return `
       background: #012B5C; 
       margin-left: auto;
       color:#ffffff
+      
       
     `;
     } else {

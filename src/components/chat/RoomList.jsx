@@ -60,7 +60,7 @@ function RoomList() {
   const [rooms, setRooms] = useState([]);
 
   const { data, error } = useSWR("/chat/rooms", fetcher, {
-    refreshInterval: 10000, // wow...
+    // refreshInterval: 10000, // wow...
     revalidateOnFocus: true,
   });
 

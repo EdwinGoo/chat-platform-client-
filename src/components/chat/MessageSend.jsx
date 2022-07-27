@@ -56,8 +56,10 @@ function MessageSend(props) {
 
   const onSendButtonClick = useCallback(
     (e) => {
-      sendMessage(ms);
-      setMs("");
+      if (ms.replace(/\s| /gi, "").length !== 0) {
+        sendMessage(ms);
+        setMs("");
+      }
       e.preventDefault();
     },
     [sendMessage, ms]
