@@ -60,8 +60,8 @@ function RoomList() {
   const [rooms, setRooms] = useState([]);
 
   const { data, error } = useSWR("/chat/rooms", fetcher, {
-    refreshInterval: 0, // wow...
-    // revalidateOnFocus: true,
+    refreshInterval: 10000, // wow...
+    revalidateOnFocus: true,
   });
 
   useEffect(() => {
@@ -96,6 +96,8 @@ function RoomList() {
               uuid={room.roomUuid}
               onToggle={onToggle}
               selected={room.selected}
+              lastMessage={room.lastMessage}
+              lastMessageDate={room.lastMessageDate}
             />
           ))}
         </RoomListItem>

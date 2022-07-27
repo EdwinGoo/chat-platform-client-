@@ -109,10 +109,10 @@ function Room(props) {
         </RoomStatus>
         <RoomNm>
           {props.roomNm} <br />
-          <RoomLastMessage>{props.uuid} </RoomLastMessage>
+          <RoomLastMessage>{props.lastMessage} </RoomLastMessage>
         </RoomNm>
         <RoomTime>
-          {timeForToday(props.createDate)} <br />
+          {timeForToday(props.lastMessageDate)} <br />
         </RoomTime>
       </RoomWrapper>
     </>
