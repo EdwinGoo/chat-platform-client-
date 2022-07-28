@@ -6,6 +6,7 @@ import MessageSend from "./MessageSend";
 import Loading from "../common/Loading";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import MessageList from "./MessageList";
+import axios from "axios";
 
 const brokerURL = "ws://localhost:18080/ws/websocket"; // ? websocket
 const subURL = "/sub/chat/room/";
@@ -121,7 +122,23 @@ function MessageBox() {
     if (connectedRoom === "") {
       alert("입장할 채팅방을 선택해주세요.");
     } else {
+      axios
+        .patch("/chat/room", {
+          id: connectedRoom.id,
+          status: "ASGMT",
+        })
+        .then(function (response) {
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
       // publishHandler("", "ENTER");
+      //
+
+      //
+      //
       setIsJoined(true);
     }
   };
@@ -154,6 +171,7 @@ function MessageBox() {
       client.publish({
         destination: pubURL,
         body: JSON.stringify({
+          roomId: connectedRoom.id,
           roomUuid: connectedRoom.uuid,
           type: type, // 타입 정의해서 어딘가에 두고 사용할 것?
           senderId: "aet",
@@ -191,6 +209,7 @@ function MessageBox() {
           {connectedRoom !== "" ? (
             <MessageList
               uuid={connectedRoom.uuid}
+              roomId={connectedRoom.id}
               changeMessageList={changeMessageList}
               messageList={messageList}
             />

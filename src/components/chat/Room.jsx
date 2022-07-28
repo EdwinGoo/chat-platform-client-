@@ -62,10 +62,12 @@ line-height: 1.42rem;
 margin: 0 0.7rem 0 0.8rem;
 border-radius: 5px;
 background: ${(props) => {
-  if (props.status === "TRUE") {
+  if (props.status === "OPEN") {
+    return "#29C840";
+  } else if (props.status === "CLOSED") {
     return "#FF5F57";
   } else {
-    return "#FEBC2D";
+    return "#087BED";
   }
 }}};
 font-weight: 700;
@@ -107,9 +109,7 @@ function Room(props) {
           boxSizeWidth="1.5rem"
           text={props.id.toString().slice(-2)}
         />
-        <RoomStatus status={props.isClosed}>
-          {props.isClosed === "FALSE" ? <p>WAITING</p> : <p>CLOSED</p>}
-        </RoomStatus>
+        <RoomStatus status={props.status}>{props.status}</RoomStatus>
         <RoomNm>
           {props.roomNm} <br />
           <RoomLastMessage>{props.lastMessage} </RoomLastMessage>

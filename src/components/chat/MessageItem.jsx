@@ -31,6 +31,7 @@ const MessageItemWrapper = styled.div.attrs((props) => props)`
       }
     } else {
       return `
+      max-width:99%;
       font-size : 0.8rem;
       margin : 0 auto;
       color : gray;

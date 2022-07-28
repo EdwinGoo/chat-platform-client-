@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import useSWR from "swr";
 import Room from "./Room";
@@ -60,7 +60,7 @@ function RoomList() {
   const [rooms, setRooms] = useState([]);
 
   const { data, error } = useSWR("/chat/rooms", fetcher, {
-    refreshInterval: 5000, // wow...
+    refreshInterval: 3000, // wow...
     revalidateOnFocus: true,
   });
 
@@ -79,7 +79,6 @@ function RoomList() {
   // }, []);
 
   if (error) return <div>failed to load</div>;
-
   return (
     <>
       <RoomListWrapper>
@@ -100,6 +99,7 @@ function RoomList() {
                 selected={room.selected}
                 lastMessage={room.lastMessage}
                 lastMessageDate={room.lastMessageDate}
+                status={room.status}
               />
             ))}
           </RoomListItem>
