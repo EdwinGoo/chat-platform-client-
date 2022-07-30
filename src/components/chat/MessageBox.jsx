@@ -8,9 +8,9 @@ import TelegramIcon from "@mui/icons-material/Telegram";
 import MessageList from "./MessageList";
 import axios from "axios";
 
-const brokerURL = "ws://localhost:18080/ws/websocket"; // ? websocket
-const subURL = "/sub/chat/room/";
-const pubURL = "/pub/chat/message";
+const brokerURL = "ws://localhost:18080/chat/ws/websocket"; // ? websocket
+const subURL = "/chat/sub/room/";
+const pubURL = "/chat/pub/message";
 
 const MessageBoxWrapper = styled.div`
   display: flex;

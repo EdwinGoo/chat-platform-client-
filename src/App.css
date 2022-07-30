@@ -48,7 +48,7 @@ text-align: center;
 }
 
 #header {
-background: #042B5C;
+background: #b8c0c9;
 grid-area: header;
 /* border-radius: var(--main-radius); */
 padding: var(--main-padding);
