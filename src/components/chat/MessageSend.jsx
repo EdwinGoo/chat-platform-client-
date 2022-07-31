@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
+import palette from "../../assets/palette";
+
 // import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 
 const MessageSendForm = styled.form`
@@ -17,10 +19,10 @@ const MessageSendForm = styled.form`
     padding-left: 0.7rem;
     font-size: 1rem;
     line-height: 1.5;
-    color: #000000;
+    color: ${palette.black};
 
     &::placeholder {
-      color: #fffff;
+      color: ${palette.gray[5]};
     }
     flex: 1;
   }
@@ -30,7 +32,7 @@ const MessageSendForm = styled.form`
     outline: none;
     border: none;
     background-color: transparent;
-    color: #027df8;
+    color: ${palette.blue[6]};
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     display: flex;
@@ -45,7 +47,7 @@ const MessageSendForm = styled.form`
 
 const MessageSendWrapper = styled.div`
   padding: 0.4rem;
-  background: #ececec;
+  background: ${palette.gray[3]};
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 `;

@@ -4,7 +4,7 @@ import styled from "styled-components";
 const SquareBox = styled.div.attrs((props) => props)`
   position: relative;
   width: ${(props) => props.boxSizeWidth};
-  background: #e6e6e6;
+  background: ${(props) => props.background};
   border-radius: 5px;
   :before {
     content: "";
@@ -37,7 +37,10 @@ const SqureContent = styled.div`
 function SqureTextBox(props) {
   return (
     <>
-      <SquareBox boxSizeWidth={props.boxSizeWidth}>
+      <SquareBox
+        boxSizeWidth={props.boxSizeWidth}
+        background={props.background}
+      >
         <SqureContent>
           <div>
             <span>{props.text}</span>

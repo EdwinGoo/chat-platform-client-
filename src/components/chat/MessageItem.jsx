@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import useStore from "../../store/useStore";
+import palette from "../../assets/palette";
 
 // message={r.message}
 // senderNm={r.senderNm}
@@ -19,13 +20,13 @@ const MessageItemWrapper = styled.div.attrs((props) => props)`
     if (props.type === "MESSAGE") {
       if (props.accntId === props.senderId) {
         return `
-        background: #012B5C; 
+        background:${palette.navy};
         margin-left: auto;
         color:#ffffff
         `;
       } else {
         return `
-        background: #eeeeee; 
+        background: ${palette.gray[2]};
         margin-right: auto
         `;
       }

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import SqureTextBox from "../common/SqureTextBox";
 import { timeForToday } from "../../utils/timeUtil";
 import useStore from "../../store/useStore";
+import palette from "../../assets/palette";
 // import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 
 // const RoomUserImage = styled.div`
@@ -17,9 +18,9 @@ const RoomWrapper = styled.div.attrs((props) => props)`
   margin-bottom: 0.4rem;
   background :${(props) => {
     if (props.selected === true) {
-      return " #EEEEEE";
+      return `${palette.gray[2]}`;
     } else {
-      return " #fefefe";
+      return `${palette.white}`;
     }
   }}};
   flex: 1;
@@ -63,11 +64,11 @@ margin: 0 0.7rem 0 0.8rem;
 border-radius: 5px;
 background: ${(props) => {
   if (props.status === "OPEN") {
-    return "#29C840";
+    return `${palette.green[6]}`;
   } else if (props.status === "CLOSED") {
-    return "#FF5F57";
+    return `${palette.red[6]}`;
   } else {
-    return "#087BED";
+    return `${palette.blue[6]}`;
   }
 }}};
 font-weight: 700;
@@ -108,6 +109,7 @@ function Room(props) {
         <SqureTextBox
           boxSizeWidth="1.5rem"
           text={props.id.toString().slice(-2)}
+          background={palette.gray[3]}
         />
         <RoomStatus status={props.status}>{props.status}</RoomStatus>
         <RoomNm>

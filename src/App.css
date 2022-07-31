@@ -59,7 +59,7 @@ color: #ffffff;
 
 main {
 /* background: #84ffff; */
-background-color: #F6F6F6;
+background-color: #f8f9fa;
 grid-area: main;
 border-radius: var(--main-radius);
 padding: var(--main-padding);

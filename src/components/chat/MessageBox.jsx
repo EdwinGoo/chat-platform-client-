@@ -7,6 +7,7 @@ import Loading from "../common/Loading";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import MessageList from "./MessageList";
 import axios from "axios";
+import palette from "../../assets/palette";
 
 const brokerURL = "ws://localhost:18080/chat/ws/websocket"; // ? websocket
 const subURL = "/chat/sub/room/";
@@ -54,7 +55,7 @@ const MessageBoxMain = styled.div`
 `;
 
 const JoinButton = styled.button`
-  color: #027df8;
+  color: ${palette.blue[6]};
   font-size: 1rem;
   padding: 0.1rem;
   padding-bottom: 0.7rem;
@@ -66,7 +67,7 @@ const JoinButton = styled.button`
   border-bottom-right-radius: 5px;
   transition: all 0.4s background ease-in;
   &:hover {
-    background: #eeeeee;
+    background: ${palette.gray[2]};
   }
   cursor: pointer;
   font-weight: 900;

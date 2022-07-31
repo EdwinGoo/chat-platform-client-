@@ -4,6 +4,7 @@ import styled from "styled-components";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
+import palette from "../../assets/palette";
 
 const SidebarWrapper = styled.nav`
   display: flex;
@@ -30,7 +31,7 @@ const RouterWrapper = styled.div`
   .link-active {
     border-radius: 5px;
     background: #fefefe;
-    color: #042b5c;
+    color: ${palette.navy};
     font-weight: 900;
   }
   a {
