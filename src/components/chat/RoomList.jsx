@@ -59,8 +59,8 @@ function RoomList() {
     });
   const [rooms, setRooms] = useState([]);
 
-  const { data, error } = useSWR("/chat/rooms", fetcher, {
-    refreshInterval: 3000, // wow...
+  const { data, error } = useSWR("/mng/rooms", fetcher, {
+    refreshInterval: 15000, // wow...
     revalidateOnFocus: true,
   });
 

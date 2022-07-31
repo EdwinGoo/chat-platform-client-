@@ -1,0 +1,16 @@
+import create from "zustand";
+
+const useStore = create((set) => ({
+  // 여기에는 채팅 가능 상태를 헤더 쪽에서 지정할 수 있게 ? on/off 버튼으로 구현할 상태 추가
+  selectedRoom: "",
+  setSelectedRoom: (room) => set({ selectedRoom: room }),
+
+  accntId: "aet",
+  userNm: "",
+  setAccntId: (accntid) => set({ accntId: accntid }),
+  setUserNm: (userNm) => set({ userNm }),
+
+  // userInfo: "",
+  // setUserInfo: (user) => set({ userInfo: user }),
+}));
+export default useStore;

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import SqureTextBox from "../common/SqureTextBox";
 import { timeForToday } from "../../utils/timeUtil";
-import useChatStore from "../../store/chatStore";
+import useStore from "../../store/useStore";
 // import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 
 // const RoomUserImage = styled.div`
@@ -91,10 +91,10 @@ const RoomLastMessage = styled.div`
 `;
 
 function Room(props) {
-  const { setConnectedRoom, connectedRoom } = useChatStore();
+  const { setSelectedRoom, selectedRoom } = useStore();
 
   const onRoomClick = () => {
-    setConnectedRoom(props);
+    setSelectedRoom(props);
     // props.onToggle(props.id);
   };
 
@@ -102,7 +102,7 @@ function Room(props) {
     <>
       <RoomWrapper
         onClick={() => onRoomClick()}
-        selected={props.id === connectedRoom.id ? true : false}
+        selected={props.id === selectedRoom.id ? true : false}
       >
         {props.selected}
         <SqureTextBox

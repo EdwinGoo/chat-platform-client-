@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import styled from "styled-components";
-import useChatStore from "../../store/chatStore";
+import useStore from "../../store/useStore";
 import { Client } from "@stomp/stompjs";
 import MessageSend from "./MessageSend";
 import Loading from "../common/Loading";
@@ -86,7 +86,7 @@ const client = new Client({
 });
 
 function MessageBox() {
-  const { connectedRoom, setConnectedRoom } = useChatStore();
+  const { selectedRoom, setSelectedRoom } = useStore();
   const [prvRoom, setPrvRoom] = useState("");
   const [isJoined, setIsJoined] = useState(false);
   const [messageList, setMessageList] = useState([]);
@@ -119,16 +119,17 @@ function MessageBox() {
   }, [messageList]);
 
   const onClickJoinButton = () => {
-    if (connectedRoom === "") {
+    if (selectedRoom === "") {
       alert("입장할 채팅방을 선택해주세요.");
     } else {
       axios
-        .patch("/chat/room", {
-          id: connectedRoom.id,
+        .patch("/mng/room", {
+          id: selectedRoom.id,
           status: "ASGMT",
         })
         .then(function (response) {
           console.log(response.data);
+          setIsJoined(true);
         })
         .catch(function (error) {
           console.log(error);
@@ -139,21 +140,20 @@ function MessageBox() {
 
       //
       //
-      setIsJoined(true);
     }
   };
 
   const subscribe = () => {
-    if (client && client.connected && connectedRoom !== "") {
-      // console.log("function#-subscribe:" + connectedRoom.uuid);
+    if (client && client.connected && selectedRoom !== "") {
+      // console.log("function#-subscribe:" + selectedRoom.uuid);
       client.subscribe(
-        subURL + connectedRoom.uuid,
+        subURL + selectedRoom.uuid,
         (data) => {
           // const newMessage = JSON.parse(data.body).message;
           // console.log(JSON.parse(data.body));
           onMessageConcat(JSON.parse(data.body));
         },
-        { id: connectedRoom.uuid }
+        { id: selectedRoom.uuid }
       );
     }
   };
@@ -171,8 +171,8 @@ function MessageBox() {
       client.publish({
         destination: pubURL,
         body: JSON.stringify({
-          roomId: connectedRoom.id,
-          roomUuid: connectedRoom.uuid,
+          roomId: selectedRoom.id,
+          roomUuid: selectedRoom.uuid,
           type: type, // 타입 정의해서 어딘가에 두고 사용할 것?
           senderId: "aet",
           message: message,
@@ -183,19 +183,19 @@ function MessageBox() {
   };
 
   useEffect(() => {
-    setPrvRoom(connectedRoom);
+    setPrvRoom(selectedRoom);
     setIsJoined(false);
     if (client.connected) {
       unsubscribe();
       subscribe();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [connectedRoom]);
+  }, [selectedRoom]);
 
   useEffect(() => {
     client.activate();
     return () => {
-      setConnectedRoom("");
+      setSelectedRoom("");
       client.deactivate();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -206,10 +206,10 @@ function MessageBox() {
       <MessageBoxWrapper>
         <MessageBoxHeader>HelpBox</MessageBoxHeader>
         <MessageBoxMain ref={scrollRef}>
-          {connectedRoom !== "" ? (
+          {selectedRoom !== "" ? (
             <MessageList
-              uuid={connectedRoom.uuid}
-              roomId={connectedRoom.id}
+              uuid={selectedRoom.uuid}
+              roomId={selectedRoom.id}
               changeMessageList={changeMessageList}
               messageList={messageList}
             />

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import useUserInfoStore from "../../store/userInfoStore";
+import useStore from "../../store/useStore";
 
 // message={r.message}
 // senderNm={r.senderNm}
@@ -44,7 +44,7 @@ const MessageItemWrapper = styled.div.attrs((props) => props)`
 `;
 
 function MessageItem(props) {
-  const { accntId } = useUserInfoStore();
+  const { accntId } = useStore();
   const { senderId, message, type } = props;
 
   return (
