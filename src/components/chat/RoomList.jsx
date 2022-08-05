@@ -3,6 +3,7 @@ import styled from "styled-components";
 import useSWR from "swr";
 import Room from "./Room";
 import Loading from "../common/Loading";
+import fetcher from "../../utils/fetcher";
 
 const RoomListWrapper = styled.div`
   display: flex;
@@ -45,18 +46,6 @@ const RoomListItem = styled.div`
 `;
 
 function RoomList() {
-  const fetcher = (...args) =>
-    fetch(...args).then((res) => {
-      switch (res.status) {
-        case 200:
-          return res.json();
-
-        case 404:
-          throw new Error("404");
-        default:
-          return res.json();
-      }
-    });
   const [rooms, setRooms] = useState([]);
 
   const { data, error } = useSWR("/mng/rooms", fetcher, {

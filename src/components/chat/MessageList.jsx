@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import { SwrGetData } from "../../utils/SwrGetData";
+import fetcher from "../../utils/fetcher";
 import MessageItem from "./MessageItem";
 import Loading from "../common/Loading";
 import styled from "styled-components";
+import useSWR from "swr";
 
 const MessageListWrapper = styled.div`
   padding: 1rem 0.5rem 0.3rem 1rem;
@@ -12,7 +13,7 @@ const MessageListWrapper = styled.div`
 
 function MessageList(props) {
   const { changeMessageList, messageList, roomId } = props;
-  const { data, isLoading, isError } = SwrGetData("/messages/" + roomId);
+  const { data, isLoading, isError } = useSWR("/messages/" + roomId, fetcher);
   useEffect(() => {
     if (data) {
       changeMessageList(data);

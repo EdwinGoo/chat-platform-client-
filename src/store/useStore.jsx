@@ -5,11 +5,6 @@ const useStore = create((set) => ({
   selectedRoom: "",
   setSelectedRoom: (room) => set({ selectedRoom: room }),
 
-  accntId: "aet",
-  userNm: "",
-  setAccntId: (accntid) => set({ accntId: accntid }),
-  setUserNm: (userNm) => set({ userNm }),
-
   // userInfo: "",
   // setUserInfo: (user) => set({ userInfo: user }),
 }));

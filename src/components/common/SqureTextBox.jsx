@@ -37,10 +37,7 @@ const SqureContent = styled.div`
 function SqureTextBox(props) {
   return (
     <>
-      <SquareBox
-        boxSizeWidth={props.boxSizeWidth}
-        background={props.background}
-      >
+      <SquareBox {...props}>
         <SqureContent>
           <div>
             <span>{props.text}</span>

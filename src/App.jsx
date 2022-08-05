@@ -1,9 +1,11 @@
-import LoginForm from "./components/login/LoginForm";
 import { useUserStore } from "./store/useUserStore";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Chat from "./components/chat/Chat";
 import Sidebar from "./components/sidebar/Sidebar";
 import NotFoundPage from "./pages/NotFoundPage";
+import UnauthorizedPage from "./pages/UnauthorizedPage";
+import LoginForm from "./components/login/LoginForm";
+
 import "./App.css";
 
 function App() {
@@ -11,24 +13,26 @@ function App() {
   return (
     <>
       {!userInfo ? (
-        <Routes>
-          <Route path="/" element={<Navigate replace to="/login" />} />
-          <Route path="login" element={<LoginForm />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
+        <div className="a_container">
+          <header id="header">HeaD wrapper</header>
+          <main>
+            <Routes>
+              <Route path="login" element={<LoginForm />} />
+              <Route path="*" element={<Navigate replace to="/login" />} />
+            </Routes>
+          </main>
+        </div>
       ) : (
-        <div className="container">
+        <div className="b_container">
           <header id="header">HeaD wrapper</header>
           <main>
             <Routes>
               <Route path="dashboard" element={<NotFoundPage />} />
               <Route path="chat" element={<Chat />} />
               <Route path="autoanswer" element={<NotFoundPage />} />
-              <Route path="/" element={<Navigate replace to="/dashboard" />} />
-              <Route
-                path="/login"
-                element={<Navigate replace to="/dashboard" />}
-              />
+              <Route path="401" element={<UnauthorizedPage />} />
+              <Route path="404" element={<NotFoundPage />} />
+              <Route path="*" element={<Navigate to="/404" />} />
             </Routes>
           </main>
           <div id="sidebar">

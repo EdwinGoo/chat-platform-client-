@@ -2,6 +2,7 @@ import React from "react";
 import useForm from "../../hooks/useForm";
 import axios from "axios";
 import { useUserStore } from "../../store/useUserStore";
+import Button from "../common/Button";
 
 function LoginForm() {
   const { setUserInfo } = useUserStore();
@@ -13,11 +14,12 @@ function LoginForm() {
         password: values.password,
       })
       .then(function (response) {
-        console.log(response.data.body);
-        if (response.data.resCode === 200) {
-          setUserInfo(response.data.body);
+        const { body, status, message } = response.data;
+        console.log(body);
+        if (status === 200) {
+          setUserInfo(body);
         } else {
-          console.log(response.data.message);
+          console.log(message);
         }
       })
       .catch(function (error) {
@@ -81,9 +83,9 @@ function LoginForm() {
         )}
       </label>
       <br />
-      <button type="submit" disabled={submitting}>
+      <Button type="submit" disabled={submitting}>
         로그인
-      </button>
+      </Button>
     </form>
   );
 }
