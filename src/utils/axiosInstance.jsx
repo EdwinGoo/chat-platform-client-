@@ -1,6 +1,6 @@
 // axiosConfig.js
 import Axios from "axios";
-import history from "./history";
+// import history from "./history";
 
 const axiosInstance = Axios.create({
   timeout: 5000,
@@ -10,7 +10,7 @@ const axiosInstance = Axios.create({
 });
 axiosInstance.interceptors.request.use(
   (config) => {
-    console.log(config);
+    // console.log(config);
     return config;
   },
   (err) => {
@@ -18,9 +18,8 @@ axiosInstance.interceptors.request.use(
   }
 );
 axiosInstance.interceptors.response.use(
-  (config) => {
-    console.log(config.data);
-    return config;
+  (response) => {
+    return response;
   },
   (err) => {
     console.log(err.response.data);

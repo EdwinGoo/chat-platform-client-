@@ -15,7 +15,7 @@ function LoginForm() {
       })
       .then(function (response) {
         const { body, status, message } = response.data;
-        console.log(body);
+        // console.log(body);
         if (status === 200) {
           setUserInfo(body);
         } else {
