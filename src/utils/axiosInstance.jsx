@@ -26,7 +26,10 @@ axiosInstance.interceptors.response.use(
     console.log(err.response.data);
     if (err.response.data.status === 401) {
       sessionStorage.clear();
-      history.replace("/401"); // <-- navigate
+      localStorage.clear();
+      window.location.href = "http://localhost:3000/login";
+      alert("세션이 만료되었습니다. 다시 로그인 해주세요.");
+      // history.replace("/401"); // <-- navigate
     }
     return Promise.reject(err);
   }
