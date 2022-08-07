@@ -4,6 +4,5 @@
     "editor.formatOnSave": false
   },
   "eslint.alwaysShowStatus": true,
-  "files.autoSave": "onFocusChange",
-  "prettier.ignorePath": "../.prettierignore"
+  "files.autoSave": "onFocusChange"
 }
