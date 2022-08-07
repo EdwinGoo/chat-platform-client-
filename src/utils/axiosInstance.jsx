@@ -1,6 +1,7 @@
 // axiosConfig.js
 import Axios from "axios";
 // import history from "./history";
+const accessToken = "wetwet";
 
 const axiosInstance = Axios.create({
   timeout: 5000,
@@ -11,6 +12,7 @@ const axiosInstance = Axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     // console.log(config);
+    config.headers.Authorization = `Bearer ${accessToken}`;
     return config;
   },
   (err) => {
@@ -19,6 +21,9 @@ axiosInstance.interceptors.request.use(
 );
 axiosInstance.interceptors.response.use(
   (response) => {
+    if (response.headers.bearer) {
+      // console.log(response.headers.bearer);
+    }
     return response;
   },
   (err) => {

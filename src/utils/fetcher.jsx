@@ -1,8 +1,10 @@
 // import axios from "axios";
-import axiosInstance from "./axiosInstance";
+// import axiosInstance from "./axiosInstance";
+// // import useAxiosInterceptor from "../hooks/useAxiosInterceptor";
+import { instance } from "./Axios";
 
 const fetcher = (url) =>
-  axiosInstance
+  instance
     .get(url, {
       withCredentials: true,
     })

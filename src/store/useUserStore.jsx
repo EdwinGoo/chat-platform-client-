@@ -6,6 +6,8 @@ export const useUserStore = create(
     (set, get) => ({
       userInfo: "",
       setUserInfo: (user) => set({ userInfo: user }),
+      accessToken: "",
+      setAccessToken: (token) => set({ accessToken: token }),
     }),
     {
       name: "userInfo", // unique name

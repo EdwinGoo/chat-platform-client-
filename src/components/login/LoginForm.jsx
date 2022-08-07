@@ -1,14 +1,14 @@
 import React from "react";
 import useForm from "../../hooks/useForm";
-import axios from "axios";
 import { useUserStore } from "../../store/useUserStore";
 import Button from "../common/Button";
+import { instance } from "../../utils/Axios";
 
 function LoginForm() {
   const { setUserInfo } = useUserStore();
 
   const LoginRequest = () => {
-    axios
+    instance
       .post("/user/login", {
         accntId: values.accntId,
         password: values.password,

@@ -5,13 +5,17 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import customHistory from "./utils/history";
 import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
+import { AxiosInterceptor } from "./utils/Axios";
+import { CookiesProvider } from "react-cookie";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <>
     <HistoryRouter history={customHistory}>
-      <App />
+      <AxiosInterceptor>
+        <App />
+      </AxiosInterceptor>
     </HistoryRouter>
   </>
 );

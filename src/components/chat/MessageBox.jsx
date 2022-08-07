@@ -8,6 +8,7 @@ import TelegramIcon from "@mui/icons-material/Telegram";
 import MessageList from "./MessageList";
 import axios from "axios";
 import palette from "../../assets/palette";
+import { instance } from "../../utils/Axios";
 
 const brokerURL = "ws://localhost:18080/chat/ws/websocket"; // ? websocket
 const subURL = "/chat/sub/room/";
@@ -123,7 +124,7 @@ function MessageBox() {
     if (selectedRoom === "") {
       alert("입장할 채팅방을 선택해주세요.");
     } else {
-      axios
+      instance
         .patch("/mng/room", {
           id: selectedRoom.id,
           status: "ASGMT",
