@@ -96,7 +96,6 @@ function Room(props) {
 
   const onRoomClick = () => {
     setSelectedRoom(props);
-    // props.onToggle(props.id);
   };
 
   return (

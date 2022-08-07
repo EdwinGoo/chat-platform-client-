@@ -13,11 +13,15 @@ const MessageListWrapper = styled.div`
 
 function MessageList(props) {
   const { changeMessageList, messageList, roomId } = props;
-  const { data, isLoading, isError } = useSWR("/messages/" + roomId, fetcher);
+  const { data, isLoading, isError } = useSWR(
+    "/chat/messages/" + roomId,
+    fetcher
+  );
   useEffect(() => {
     if (data) {
       changeMessageList(data);
     }
+    console.log("messagaList Effect");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 

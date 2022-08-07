@@ -1,12 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import useStore from "../../store/useStore";
 import palette from "../../assets/palette";
-
-// message={r.message}
-// senderNm={r.senderNm}
-// senderId={r.senderId}
-// type={r.type}
+import { useUserStore } from "../../store/useUserStore";
 
 const MessageItemWrapper = styled.div.attrs((props) => props)`
   background: none;
@@ -45,12 +40,16 @@ const MessageItemWrapper = styled.div.attrs((props) => props)`
 `;
 
 function MessageItem(props) {
-  const { accntId } = useStore();
+  const { userInfo } = useUserStore();
   const { senderId, message, type } = props;
 
   return (
     <>
-      <MessageItemWrapper senderId={senderId} accntId={accntId} type={type}>
+      <MessageItemWrapper
+        senderId={senderId}
+        accntId={userInfo.accntId}
+        type={type}
+      >
         {message}
       </MessageItemWrapper>
     </>

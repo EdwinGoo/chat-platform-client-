@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from "react";
+// import React, { useState, useLayoutEffect } from "react";
 import styled from "styled-components";
 import useSWR from "swr";
 import Room from "./Room";
@@ -46,16 +46,15 @@ const RoomListItem = styled.div`
 `;
 
 function RoomList() {
-  const [rooms, setRooms] = useState([]);
-
+  // const [rooms, setRooms] = useState([]);
   const { data, error } = useSWR("/mng/rooms", fetcher, {
-    refreshInterval: 15000, // wow...
+    refreshInterval: 50000, // wow...
     revalidateOnFocus: true,
   });
 
-  useLayoutEffect(() => {
-    setRooms(data);
-  }, [data]);
+  // useLayoutEffect(() => {
+  //   setRooms(data);
+  // }, [data]);
 
   // const onToggle = useCallback((id) => {
   //   setRooms((rooms) =>
@@ -72,11 +71,11 @@ function RoomList() {
     <>
       <RoomListWrapper>
         <RoomListHeader>HELP ME!</RoomListHeader>
-        {!rooms || error ? (
+        {!data || error ? (
           <Loading />
         ) : (
           <RoomListItem>
-            {rooms.map((room) => (
+            {data.map((room) => (
               <Room
                 key={room.id}
                 id={room.id}

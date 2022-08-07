@@ -6,10 +6,9 @@ import MessageSend from "./MessageSend";
 import Loading from "../common/Loading";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import MessageList from "./MessageList";
-import axios from "axios";
 import palette from "../../assets/palette";
 import { instance } from "../../utils/Axios";
-
+import { useUserStore } from "../../store/useUserStore";
 const brokerURL = "ws://localhost:18080/chat/ws/websocket"; // ? websocket
 const subURL = "/chat/sub/room/";
 const pubURL = "/chat/pub/message";
@@ -93,6 +92,7 @@ function MessageBox() {
   const [isJoined, setIsJoined] = useState(false);
   const [messageList, setMessageList] = useState([]);
   const scrollRef = useRef();
+  const { userInfo } = useUserStore();
 
   const scrollToBottom = () => {
     if (scrollRef.current) {
@@ -130,7 +130,6 @@ function MessageBox() {
           status: "ASGMT",
         })
         .then(function (response) {
-          console.log(response.data);
           setIsJoined(true);
         })
         .catch(function (error) {
@@ -176,9 +175,9 @@ function MessageBox() {
           roomId: selectedRoom.id,
           roomUuid: selectedRoom.uuid,
           type: type, // 타입 정의해서 어딘가에 두고 사용할 것?
-          senderId: "aet",
+          senderId: userInfo.accntId,
           message: message,
-          senderNm: "구윤모",
+          senderNm: userInfo.userNm,
         }),
       });
     }
