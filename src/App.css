@@ -63,7 +63,7 @@ background: #ffffff;
 grid-area: header;
 /* border-radius: var(--main-radius); */
 padding: var(--main-padding);
-min-height: 30px;
+min-height: 25px;
 color: black; 
 border-bottom: 0.1rem solid #ececec;
 }
@@ -74,7 +74,7 @@ background-color: #f8f9fa;
 grid-area: main;
 border-radius: var(--main-radius);
 padding: var(--main-padding);
-height: 96vh;
+height: 93vh;
 }
 
 #sidebar {
