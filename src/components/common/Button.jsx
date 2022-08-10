@@ -7,14 +7,16 @@ const StyledButton = styled.button`
   border-radius: 4px;
   font-size:1rem;
   font-weight:bold;
-  padding 0.25rem;
+  padding 0.5rem;
   color:${palette.white};
   outline:none;
   cursor:pointer;
-  background : ${palette.gray[8]};
+  background : ${palette.blue[5]};
   &:hover {
-    background : ${palette.gray[6]};
+    background : ${palette.blue[4]};
   }
+  width:100%;
+
 `;
 
 const Button = (props) => <StyledButton {...props} />;

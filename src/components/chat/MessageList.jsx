@@ -21,7 +21,6 @@ function MessageList(props) {
     if (data) {
       changeMessageList(data);
     }
-    console.log("messagaList Effect");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
