@@ -38,6 +38,8 @@ const AxiosInterceptor = ({ children }) => {
         window.location.href = "http://localhost:3000/login";
         alert("세션이 만료되었습니다. 다시 로그인 해주세요.");
         // history.replace("/401"); // <-- navigate
+      } else if (err.response.data.status === 403) {
+        window.location.href = "http://localhost:3000/403";
       }
       return Promise.reject(err);
     }

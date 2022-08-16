@@ -64,6 +64,7 @@ grid-area: header;
 /* border-radius: var(--main-radius); */
 padding: var(--main-padding);
 min-height: 35px;
+
 color: black; 
 border-bottom: 0.1rem solid #ececec;
 }
