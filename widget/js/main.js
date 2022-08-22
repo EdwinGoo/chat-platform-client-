@@ -202,6 +202,7 @@ var loadChatWindow = function () {
               type: "ENTER", // Enum 타입 정의해서 어딘가에 두고 사용할 것
               senderId: senderId,
               senderNm: senderNm,
+              message: `${senderNm}님이 입장하셨습니다.` 
             })
           );
         },

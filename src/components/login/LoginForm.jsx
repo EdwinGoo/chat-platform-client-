@@ -55,7 +55,7 @@ function LoginForm() {
 
   const LoginRequest = () => {
     instance
-      .post("/user/login", {
+      .post("/login", {
         accntId: values.accntId,
         password: values.password,
       })
