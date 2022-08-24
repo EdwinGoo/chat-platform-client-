@@ -59,7 +59,12 @@ var loadChatWindow = function () {
       "</span>  " +
       "</button>    " +
       "</div>   " +
-      '<div class="chatbox__body" id="chatbox_body_content">     </div>    ' +
+      '<div class="chatbox__body" id="chatbox_body_content"> '    +
+      '<div id="chatbox_body_inner"> '+
+      '<div id="chatbox_body_bot"> '    +
+      '</div>    ' +
+      '</div>    ' +
+      '</div>    ' +
       '<form class="chatbox__credentials">      ' +
       '<div class="form-group">      ' +
       '<label for="inputAccntId">Accntid:</label>     <input type="text" class="chatbox__credentials_input" id="inputAccntId" required>     ' +
@@ -73,6 +78,10 @@ var loadChatWindow = function () {
       '<input type="hidden" id="roomId" name="roomId" value="">     ' +
       '<input type="text" id="user_input" name="user_input" class="chatbox__message" placeholder="메시지를 입력하세요."></input>     ' +
       "</div>"
+
+    +'<script type="text/javascript" src="js/conversation.js"></script>+'
+    +'<script type="text/javascript" src="js/peekobot.js"></script>'
+
   );
 
   var chatbox_div = $(".chatbox");
