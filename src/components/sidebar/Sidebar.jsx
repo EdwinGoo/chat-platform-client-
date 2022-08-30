@@ -4,6 +4,7 @@ import styled from "styled-components";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import palette from "../../assets/palette";
 
 const SidebarWrapper = styled.nav`
@@ -28,7 +29,6 @@ const RouterWrapper = styled.div`
   width: 80%;
   display: flex;
   flex-direction: column;
-
   .link-active {
     border-radius: 5px;
     background: #fefefe;
@@ -90,7 +90,14 @@ function Sidebar() {
             className={({ isActive }) => (isActive ? "link-active" : "link")}
           >
             <MenuBookIcon />
-            <LinkNm>자동응답</LinkNm>
+            <LinkNm>가이드설정</LinkNm>
+          </NavLink>
+          <NavLink
+            to="/users"
+            className={({ isActive }) => (isActive ? "link-active" : "link")}
+          >
+            <PeopleAltIcon />
+            <LinkNm>사용자관리</LinkNm>
           </NavLink>
         </RouterWrapper>
       </SidebarWrapper>

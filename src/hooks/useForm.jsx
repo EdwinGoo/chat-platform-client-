@@ -24,6 +24,7 @@ function useForm({ initialValues, onSubmit, validate }) {
       }
       setSubmitting(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errors]);
 
   return {

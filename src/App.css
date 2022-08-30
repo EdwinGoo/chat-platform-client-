@@ -1,8 +1,8 @@
 :root {
   --main-radius: 0.4rem;
   --main-padding: 0.4rem;
-  font-size: 14px;
-  --sub-title-font-size : 1.3rem
+  font-size: 16px;
+  --sub-title-font-size : 1.3rem;
 }
 
 * {
@@ -63,7 +63,7 @@ background: #ffffff;
 grid-area: header;
 /* border-radius: var(--main-radius); */
 padding: var(--main-padding);
-min-height: 35px;
+min-height: 40px;
 
 color: black; 
 border-bottom: 0.1rem solid #ececec;
@@ -75,7 +75,7 @@ background-color: #f8f9fa;
 grid-area: main;
 border-radius: var(--main-radius);
 padding: var(--main-padding);
-height: 93vh;
+height: 95vh;
 }
 
 #sidebar {
