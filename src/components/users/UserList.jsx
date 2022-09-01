@@ -21,24 +21,26 @@ const UserSearchArea = styled.div`
   margin-bottom: 0.5rem;
   background-color: #fefefe;
   padding: 0.9rem 0 0.9rem 0.8rem;
-  width: calc(100% - 1.65rem);
+  width: calc(100%);
   border-radius: 9px;
 `;
 
-function UserList() {
-  const [selecteOption, setSelecteOption] = useState("");
+function UserList({ legacies }) {
+  const data = legacies?.reduce(
+    (acc, it) => [...acc, { id: it.id, value: it.lgcyNm }],
+    []
+  );
+  const [selecteOption, setSelecteOption] = useState(data[0]);
 
   return (
     <>
       <UserListWrapper>
-        <SubTitle>사용자 리스트</SubTitle>
-
+        <SubTitle>사용자 리스트 검색</SubTitle>
         <UserSearchArea>
           <SelectBox
-            options={["TEST1", "TEST2"]}
+            options={data}
             selectedOption={selecteOption}
             setSelectedOption={setSelecteOption}
-            width="15"
           />
         </UserSearchArea>
       </UserListWrapper>
