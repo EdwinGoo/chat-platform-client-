@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import UserList from "./UserList";
 import UserDetail from "./UserDetail";
@@ -17,16 +17,25 @@ function Users() {
     revalidateOnFocus: false,
   });
 
+  const legacyMap = data?.reduce(
+    (acc, it) => [...acc, { id: it.id, value: it.lgcyNm }],
+    []
+  );
+
+  const [selecteOption, setSelecteOption] = useState("");
+
+  if (error) return <div>error</div>;
+  if (!data) return <Loading />;
   return (
     <>
-      {!data || error ? (
-        <Loading />
-      ) : (
-        <UsersArea>
-          <UserList legacies={data} />
-          <UserDetail />
-        </UsersArea>
-      )}
+      <UsersArea>
+        <UserList
+          legacyMap={legacyMap}
+          selecteOption={selecteOption}
+          setSelecteOption={setSelecteOption}
+        />
+        <UserDetail />
+      </UsersArea>
     </>
   );
 }

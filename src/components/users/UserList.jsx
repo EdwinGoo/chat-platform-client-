@@ -20,17 +20,13 @@ const UserSearchArea = styled.div`
   font-weight: 700;
   margin-bottom: 0.5rem;
   background-color: #fefefe;
-  padding: 0.9rem 0 0.9rem 0.8rem;
+  padding: 0.7rem;
   width: calc(100%);
   border-radius: 9px;
 `;
 
-function UserList({ legacies }) {
-  const data = legacies?.reduce(
-    (acc, it) => [...acc, { id: it.id, value: it.lgcyNm }],
-    []
-  );
-  const [selecteOption, setSelecteOption] = useState(data[0]);
+function UserList({ legacyMap, selecteOption, setSelecteOption }) {
+  // const [selecteOption, setSelecteOption] = useState(data[0]);
 
   return (
     <>
@@ -38,9 +34,10 @@ function UserList({ legacies }) {
         <SubTitle>사용자 리스트 검색</SubTitle>
         <UserSearchArea>
           <SelectBox
-            options={data}
+            options={legacyMap}
             selectedOption={selecteOption}
             setSelectedOption={setSelecteOption}
+            width={"100%"}
           />
         </UserSearchArea>
       </UserListWrapper>

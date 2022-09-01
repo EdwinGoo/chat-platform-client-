@@ -4,14 +4,11 @@ import useSelect from "../../hooks/useSelect";
 import palette from "../../assets/palette";
 
 const SelectBoxWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  width: ${({ width }) => `${width}`};
 `;
 
-const Label = styled.label`
+const Label = styled.div`
   position: relative;
-  display: inline-block;
-  width: ${({ width }) => `${width}px`};
   &::after {
     content: "";
     position: absolute;
@@ -34,7 +31,6 @@ const Select = styled.select`
   border-radius: 4px;
   appearance: none;
   border: solid 2px ${palette.gray[3]};
-
   -webkit-appearance: none;
   -moz-appearance: none;
   font-weight: 700;
@@ -46,7 +42,7 @@ const SelectItemWrapper = styled.div`
   flex-direction: column;
   border-radius: 4px;
   margin-top: 0.3rem;
-  width: ${({ width }) => `${width}px`};
+  width: ${({ width }) => `${width}`};
   padding: 0.1rem 0 0.1rem 0;
   border: solid 2px ${palette.gray[3]};
   background-color: white;
@@ -80,7 +76,7 @@ function SelectBox({ options, selectedOption, setSelectedOption, width }) {
 
   return (
     <>
-      <SelectBoxWrapper>
+      <SelectBoxWrapper width={width}>
         <Label ref={labelRef} width={width} onMouseDown={handleOpenSelectBox}>
           <Select value={selectedOption} onChange={handleSelectBox}>
             {options?.map((o) => {
