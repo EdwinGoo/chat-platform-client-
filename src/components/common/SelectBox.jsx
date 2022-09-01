@@ -11,8 +11,7 @@ const SelectBoxWrapper = styled.div`
 const Label = styled.label`
   position: relative;
   display: inline-block;
-  width: ${({ width }) => `${width}rem`};
-
+  width: ${({ width }) => `${width}px`};
   &::after {
     content: "";
     position: absolute;
@@ -34,7 +33,7 @@ const Select = styled.select`
   width: 100%;
   border-radius: 4px;
   appearance: none;
-  border: solid 2px ${palette.gray[4]};
+  border: solid 2px ${palette.gray[3]};
 
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -47,9 +46,9 @@ const SelectItemWrapper = styled.div`
   flex-direction: column;
   border-radius: 4px;
   margin-top: 0.3rem;
-  width: ${({ width }) => `${width}rem`};
+  width: ${({ width }) => `${width}px`};
   padding: 0.1rem 0 0.1rem 0;
-  border: solid 2px ${palette.gray[4]};
+  border: solid 2px ${palette.gray[3]};
   background-color: white;
   box-sizing: border-box;
 `;
@@ -84,25 +83,25 @@ function SelectBox({ options, selectedOption, setSelectedOption, width }) {
       <SelectBoxWrapper>
         <Label ref={labelRef} width={width} onMouseDown={handleOpenSelectBox}>
           <Select value={selectedOption} onChange={handleSelectBox}>
-            {options.map((o) => {
+            {options?.map((o) => {
               return (
-                <option key={o} value={o}>
-                  {o}
+                <option key={o.id} value={o.value}>
+                  {selectedOption.value}
                 </option>
               );
             })}
           </Select>
           {clickSelectedBox && (
             <SelectItemWrapper width={width}>
-              {options.map((option) => (
+              {options?.map((o) => (
                 <SelectItem
                   width={width}
-                  key={option}
-                  value={option}
-                  onClick={(e) => handleSelectBox(e, option)}
+                  key={o.id}
+                  value={o.value}
+                  onClick={(e) => handleSelectBox(e, o)}
                   // isSelected={option === selectedOption}
                 >
-                  {option}
+                  {o.value}
                 </SelectItem>
               ))}
             </SelectItemWrapper>

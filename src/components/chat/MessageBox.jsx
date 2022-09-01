@@ -28,7 +28,6 @@ const MessageBoxHeader = styled.div`
   color: #000000;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  background-color: #fefefe;
   padding: 0.9rem 0 0.9rem 0.8rem;
   width: 98%;
   border-radius: 8px;

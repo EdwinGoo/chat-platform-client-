@@ -9,7 +9,7 @@ function Loading() {
           position: "relative",
           top: "50%",
           left: "50%",
-          transform: "translate(-50%, 20vh)",
+          transform: "translate(-50%, 0)",
         }}
       >
         <BeatLoader size={8} color="#5b9fe6" />

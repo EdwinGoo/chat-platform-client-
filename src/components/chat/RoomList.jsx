@@ -20,9 +20,8 @@ const RoomListHeader = styled.div`
   color: #000000;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  background-color: #fefefe;
   padding: 0.9rem 0 0.9rem 0.8rem;
-  width: calc(100% - 1.65rem);
+  width: calc(100%);
   border-radius: 9px;
 `;
 const RoomListItem = styled.div`
