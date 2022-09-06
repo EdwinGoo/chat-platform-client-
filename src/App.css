@@ -1,6 +1,6 @@
 :root {
-  --main-radius: 0.4rem;
-  --main-padding: 0.4rem;
+  --main-radius: 0.5rem;
+  --main-padding: 0.7rem;
   font-size: 16px;
   --sub-title-font-size : 1.3rem;
 }
@@ -71,11 +71,10 @@ border-bottom: 0.1rem solid #ececec;
 
 main {
 /* background: #84ffff; */
-background-color: #f8f9fa;
+background-color: #F4F5F9;
 grid-area: main;
-border-radius: var(--main-radius);
 padding: var(--main-padding);
-height: 95vh;
+height: 94vh;
 }
 
 #sidebar {

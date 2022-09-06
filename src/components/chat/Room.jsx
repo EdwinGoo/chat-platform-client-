@@ -13,6 +13,7 @@ import palette from "../../assets/palette";
 // `;
 
 const RoomWrapper = styled.div.attrs((props) => props)`
+  border: solid 1px ${palette.gray[3]};
   cursor: pointer;
   min-height: 4.2rem;
   margin-bottom: 0.4rem;
@@ -23,7 +24,6 @@ const RoomWrapper = styled.div.attrs((props) => props)`
       return `${palette.white}`;
     }
   }}};
-  flex: 1;
   border-radius: 10px;
   flex-direction: row;
   display: flex;
@@ -31,7 +31,6 @@ const RoomWrapper = styled.div.attrs((props) => props)`
   justify-content: flex-start;
   padding-left: 10px;
   padding-right: 10px
-
 `;
 
 const RoomNm = styled.div`

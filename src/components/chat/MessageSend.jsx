@@ -10,7 +10,7 @@ const MessageSendForm = styled.form`
   background: #ffffff;
   border: none;
   border-radius: 5px;
-
+  height: 2.3rem;
   input {
     background: none;
     outline: none;
@@ -20,9 +20,9 @@ const MessageSendForm = styled.form`
     font-size: 1rem;
     line-height: 1.5;
     color: ${palette.black};
-
     &::placeholder {
-      color: ${palette.gray[5]};
+      color: ${palette.gray[6]};
+      font-weight: 700;
     }
     flex: 1;
   }
@@ -32,7 +32,7 @@ const MessageSendForm = styled.form`
     outline: none;
     border: none;
     background-color: transparent;
-    color: ${palette.blue[6]};
+    color: ${palette.navy};
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     display: flex;
@@ -46,10 +46,9 @@ const MessageSendForm = styled.form`
 `;
 
 const MessageSendWrapper = styled.div`
-  padding: 0.4rem;
-  background: ${palette.gray[3]};
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  padding: 0.2rem;
+  background: ${palette.navy};
+  border-radius: 8px;
 `;
 
 function MessageSend(props) {

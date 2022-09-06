@@ -35,7 +35,8 @@ const MessageBoxHeader = styled.div`
 
 const MessageBoxMain = styled.div`
   background: #ffffff;
-  border-top-left-radius: 5px;
+  border: solid 1px ${palette.gray[3]};
+  border-radius: 10px;
   height: 40vh;
   overflow-y: scroll;
   ::-webkit-scrollbar {
@@ -44,29 +45,30 @@ const MessageBoxMain = styled.div`
   }
   ::-webkit-scrollbar-thumb {
     background-color: #c7c7c7;
-    border-radius: 7px;
+    border-radius: 10px;
     background-clip: padding-box;
     border: 3px solid transparent;
   }
   ::-webkit-scrollbar-track {
-    background-color: #ffffff;
+    background-color: #f4f5f9;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
   }
 `;
 
 const JoinButton = styled.button`
   color: ${palette.blue[6]};
   font-size: 1rem;
-  padding: 0.1rem;
-  padding-bottom: 0.7rem;
-  background: none;
+  height: 2.5rem;
+  background: ${palette.navy};
   outline: none;
   border: none;
-  background: #ffffff;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-radius: 8px;
+  color: ${palette.white};
   transition: all 0.4s background ease-in;
   &:hover {
-    background: ${palette.gray[2]};
+    background: ${palette.white};
+    color: ${palette.navy};
   }
   cursor: pointer;
   font-weight: 900;
@@ -220,9 +222,7 @@ function MessageBox() {
         {isJoined === true ? (
           <MessageSend sendMessage={publishHandler} />
         ) : (
-          <JoinButton onClick={onClickJoinButton}>
-            시작하기 <TelegramIcon />
-          </JoinButton>
+          <JoinButton onClick={onClickJoinButton}>시작하기</JoinButton>
         )}
       </MessageBoxWrapper>
     </>
