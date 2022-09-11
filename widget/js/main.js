@@ -1,6 +1,7 @@
 var sock;
 var stompClient;
 
+
 document.onreadystatechange = function (e) {
   if (document.readyState === "complete") {
     console.log("document.onreadystatechange function");
@@ -11,7 +12,10 @@ document.onreadystatechange = function (e) {
 };
 window.onload = function (e) {
   console.log("hi, inside window.onload function");
+
 };
+
+
 
 // 스크립트 로드
 const loadScript = function (scriptNm, scriptObjCheck, afterCallback) {
@@ -36,6 +40,7 @@ const loadScript = function (scriptNm, scriptObjCheck, afterCallback) {
 var loadStomp = function () {
   console.log(`loadStomp is loaded`);
 };
+
 
 var loadSockJS = function () {
   console.log(`loadSockJS is loaded`);
@@ -139,6 +144,8 @@ var loadChatWindow = function () {
     $("#roomId").val(roomId);
     return roomUuid;
   };
+
+ 
 
   function sendMessage(text) {
     var temproomID = $("#roomUuid").val();

@@ -1,4 +1,6 @@
 const bot = function () {
+    test={}
+   
 
     const peekobot = document.getElementById('chatbox_body_content');
     const container = document.getElementById('chatbox_body_inner');
