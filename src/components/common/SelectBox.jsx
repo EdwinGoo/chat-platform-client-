@@ -7,15 +7,15 @@ const SelectBoxWrapper = styled.div`
   width: ${({ width }) => `${width}`};
 `;
 
-const Label = styled.div`
+const Label = styled.div.attrs((props) => props)`
   position: relative;
   &::after {
     content: "";
     position: absolute;
     width: 0.5rem; /* 사이즈 */
     height: 0.5rem; /* 사이즈 */
-    border-top: 3px solid ${palette.gray[5]}; /* 선 두께 */
-    border-right: 3px solid ${palette.gray[5]}; /* 선 두께 */
+    border-top: 3px solid ${palette.gray[5]};
+    border-right: 3px solid ${palette.gray[5]};
     border-radius: 0.125rem;
     cursor: pointer;
     transform: rotate(135deg); /* 각도 */
@@ -28,9 +28,9 @@ const Select = styled.select`
   padding: 10px 10px;
   font-size: 1rem;
   width: 100%;
-  border-radius: 4px;
+  border-radius: 7px;
   appearance: none;
-  border: solid 2px ${palette.gray[3]};
+  border: solid 1px ${palette.gray[4]};
   -webkit-appearance: none;
   -moz-appearance: none;
   font-weight: 700;
@@ -40,7 +40,7 @@ const SelectItemWrapper = styled.div`
   position: absolute;
   display: flex;
   flex-direction: column;
-  border-radius: 4px;
+  border-radius: 7px;
   margin-top: 0.3rem;
   width: ${({ width }) => `${width}`};
   padding: 0.1rem 0 0.1rem 0;
@@ -82,7 +82,9 @@ function SelectBox({ options, selectedOption, setSelectedOption, width }) {
             {options?.map((o) => {
               return (
                 <option key={o.id} value={o.value}>
-                  {selectedOption.value}
+                  {selectedOption.value
+                    ? selectedOption.value
+                    : "선택해주세요."}
                 </option>
               );
             })}
@@ -95,7 +97,7 @@ function SelectBox({ options, selectedOption, setSelectedOption, width }) {
                   key={o.id}
                   value={o.value}
                   onClick={(e) => handleSelectBox(e, o)}
-                  // isSelected={option === selectedOption}
+                  isSelected={o === selectedOption}
                 >
                   {o.value}
                 </SelectItem>

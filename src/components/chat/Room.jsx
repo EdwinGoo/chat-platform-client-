@@ -13,7 +13,7 @@ import palette from "../../assets/palette";
 // `;
 
 const RoomWrapper = styled.div.attrs((props) => props)`
-  border: solid 1px ${palette.gray[3]};
+  border: solid 1px ${palette.gray[4]};
   cursor: pointer;
   min-height: 4.2rem;
   margin-bottom: 0.4rem;

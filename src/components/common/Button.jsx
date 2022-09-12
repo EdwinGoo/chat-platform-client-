@@ -16,7 +16,7 @@ const StyledButton = styled.button`
     background : ${palette.blue[4]};
   }
   width:100%;
-
+  text-align: center;
 `;
 
 const Button = (props) => <StyledButton {...props} />;

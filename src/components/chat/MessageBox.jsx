@@ -35,7 +35,7 @@ const MessageBoxHeader = styled.div`
 
 const MessageBoxMain = styled.div`
   background: #ffffff;
-  border: solid 1px ${palette.gray[3]};
+  border: solid 1px ${palette.gray[4]};
   border-radius: 10px;
   height: 40vh;
   overflow-y: scroll;
@@ -50,7 +50,7 @@ const MessageBoxMain = styled.div`
     border: 3px solid transparent;
   }
   ::-webkit-scrollbar-track {
-    background-color: #f4f5f9;
+    background-color: #ffffff;
     border-radius: 10px;
     box-shadow: inset 0px 0px 5px white;
   }
@@ -72,6 +72,7 @@ const JoinButton = styled.button`
   }
   cursor: pointer;
   font-weight: 900;
+  text-align: center;
 `;
 
 const client = new Client({

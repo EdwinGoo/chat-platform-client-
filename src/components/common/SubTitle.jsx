@@ -12,7 +12,6 @@ const StyledSubTitle = styled.div`
   font-weight: 700;
   margin-bottom: 0.5rem;
   padding: 0.9rem 0 0.9rem 0.8rem;
-  width: calc(100%);
   border-radius: 9px;
 `;
 

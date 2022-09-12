@@ -10,7 +10,7 @@ const MessageSendForm = styled.form`
   background: #ffffff;
   border: none;
   border-radius: 5px;
-  height: 2.3rem;
+  height: 2.4rem;
   input {
     background: none;
     outline: none;
@@ -46,7 +46,7 @@ const MessageSendForm = styled.form`
 `;
 
 const MessageSendWrapper = styled.div`
-  padding: 0.2rem;
+  padding: 0.1rem;
   background: ${palette.navy};
   border-radius: 8px;
 `;
@@ -81,9 +81,7 @@ function MessageSend(props) {
             onChange={onSendMessageChange}
             name={"ms"}
           ></input>
-          <button type="submit">
-            <SendRoundedIcon />
-          </button>
+          <button type="submit">{/* <SendRoundedIcon /> */}</button>
         </MessageSendForm>
       </MessageSendWrapper>
     </>

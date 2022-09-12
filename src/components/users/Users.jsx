@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import UserList from "./UserList";
 import UserDetail from "./UserDetail";
@@ -22,8 +22,8 @@ function Users() {
     []
   );
 
-  const [selecteOption, setSelecteOption] = useState("");
-
+  const [selectedOption, setSelectedOption] = useState("");
+  const [userId, setUserId] = useState();
   if (error) return <div>error</div>;
   if (!data) return <Loading />;
   return (
@@ -31,10 +31,11 @@ function Users() {
       <UsersArea>
         <UserList
           legacyMap={legacyMap}
-          selecteOption={selecteOption}
-          setSelecteOption={setSelecteOption}
+          selectedOption={selectedOption}
+          setSelectedOption={setSelectedOption}
+          setUserId={setUserId}
         />
-        <UserDetail />
+        <UserDetail userId={userId} />
       </UsersArea>
     </>
   );

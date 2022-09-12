@@ -8,6 +8,7 @@
 * {
   margin: 0;
   padding: 0;
+  text-align:left;
 }
 
 li {
@@ -29,7 +30,6 @@ a:active, a:focus {
 
 body {
   font-family: 'Roboto', sans-serif;
-  
 }
 
 .a_container {

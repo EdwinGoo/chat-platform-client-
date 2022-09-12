@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import SubTitle from "../common/SubTitle";
 import SelectBox from "../common/SelectBox";
+import Button from "../common/Button";
+import Input from "../common/Input";
 
+import palette from "../../assets/palette";
+import fetcher from "../../utils/fetcher";
+import UserItem from "./UserItem";
 const UserListWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -10,36 +15,64 @@ const UserListWrapper = styled.div`
   flex-basis: 30%;
 `;
 
-const UserSearchArea = styled.div`
-  display: flex;
-  align-items: center;
-  color: black;
-  margin-right: auto;
-  font-size: var(--sub-title-font-size);
-  color: #000000;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  background-color: #fefefe;
-  padding: 0.7rem;
-  width: calc(100%);
-  border-radius: 9px;
+// const UserSearchArea = styled.div`
+//   display: flex;
+//   margin-bottom: 0.5rem;
+//   background-color: ${palette.white};
+//   width: 100%;
+//   border-radius: 9px;
+// `;
+
+const UserItemArea = styled.div`
+  margin-top: 0.5rem;
+  background-color: ${palette.white};
+  border-radius: 7px;
+  border: solid 1px ${palette.gray[4]};
 `;
 
-function UserList({ legacyMap, selecteOption, setSelecteOption }) {
+function UserList({ legacyMap, selectedOption, setSelectedOption, setUserId }) {
   // const [selecteOption, setSelecteOption] = useState(data[0]);
+  const [users, setUsers] = useState();
+  const [legacyId, setLegacyID] = useState();
+  useEffect(() => {
+    if (selectedOption !== "") {
+      // fetcher("/mng/users?legacyId=" + selectedOption.id).then((data) => {
+      //   setUsers(data);
+      // });
+      setLegacyID(selectedOption.id);
+    }
+    return () => {
+      // console.log("");
+    };
+  }, [selectedOption]);
 
   return (
     <>
       <UserListWrapper>
-        <SubTitle>사용자 리스트 검색</SubTitle>
-        <UserSearchArea>
-          <SelectBox
-            options={legacyMap}
-            selectedOption={selecteOption}
-            setSelectedOption={setSelecteOption}
-            width={"100%"}
-          />
-        </UserSearchArea>
+        <SubTitle>사용자 조회</SubTitle>
+        <SelectBox
+          options={legacyMap}
+          selectedOption={selectedOption}
+          setSelectedOption={setSelectedOption}
+          width={"100%"}
+        />
+        <Input style={{ margin: "0.5rem 0 0 0" }}></Input>
+        <Button style={{ margin: "0.5rem 0 0 0" }}>검색</Button>
+        {users ? (
+          <UserItemArea>
+            {users.map((u) => (
+              <UserItem
+                key={u.accntId}
+                accntId={u.accntId}
+                userNm={u.userNm}
+                userId={u.id}
+                setUserId={setUserId}
+              />
+            ))}
+          </UserItemArea>
+        ) : (
+          <br />
+        )}
       </UserListWrapper>
     </>
   );
