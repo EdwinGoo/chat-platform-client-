@@ -1,6 +1,6 @@
 #chatbox_body_content {
     border: 1px solid hsl(0, 0%, 90%);
-    border-radius: 12px;
+    /* border-radius: 12px; */
     box-shadow: 2px 2px 5px hsl(0, 0%, 60%);
     padding: 1rem 1rem 2rem 1rem;
     height: var(--peekobot-height);
