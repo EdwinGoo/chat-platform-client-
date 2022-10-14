@@ -1,6 +1,6 @@
 const bot = function () {
     test={}
-   
+
 
     const peekobot = document.getElementById('chatbox_body_content');
     const container = document.getElementById('chatbox_body_inner');
@@ -12,7 +12,7 @@ const bot = function () {
     };
 
     const scrollContainer = function () {
-        inner.scrollTop = inner.scrollHeight;
+        peekobot.scrollTop = peekobot.scrollHeight;
     };
 
     const insertNewChatItem = function (elem) {
@@ -104,20 +104,39 @@ const bot = function () {
     const handleRestart = function () {
         startConversation();
     }
+    const chatStart = function () {
+        startChatConversation();
+    }
 
     const startConversation = function () {
         printResponse(chat[1]);
     }
 
+    const startChatConversation = function () {
+        var chatStartTarget=document.getElementById("user_input");
+        chatStartTarget.style.display="block";
+    }
+
+
     const init = function () {
         container.addEventListener('click', handleChoice);
 
+        charstartButton = document.createElement('button');
+        charstartButton.setAttribute("id","chatstart_button")
+
+        charstartButton.innerText = "상담원과 채팅시작";
+        charstartButton.classList.add('chatstart');
+        charstartButton.addEventListener('click', chatStart);
+
         restartButton = document.createElement('button');
-        restartButton.innerText = "Restart";
+        restartButton.setAttribute("id","restart_button")
+        restartButton.innerText = "챗봇 질문 재시작";
         restartButton.classList.add('restart');
         restartButton.addEventListener('click', handleRestart);
 
-        container.appendChild(restartButton);
+        peekobot.appendChild(restartButton);
+        peekobot.appendChild(charstartButton);
+
 
         startConversation();
     };

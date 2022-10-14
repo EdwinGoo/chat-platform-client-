@@ -118,6 +118,7 @@
 .chatbox__title__close:hover,.chatbox__title__tray:hover{
     opacity:1
 }
+
 .chatbox__title__tray span{
     width:12px;
     height:12px;
@@ -271,4 +272,8 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+}
+
+.chatbox__message{
+    display: none;
 }

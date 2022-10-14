@@ -93,6 +93,7 @@ var loadChatWindow = function () {
   var title_div = $(".chatbox__title");
   var close_bottom = $(".chatbox__title__close");
   var identity_form = $(".chatbox__credentials");
+ 
 
   function appendMessage(bodyJson) {
     console.log(bodyJson);
@@ -218,7 +219,7 @@ var loadChatWindow = function () {
               type: "ENTER", // Enum 타입 정의해서 어딘가에 두고 사용할 것
               senderId: senderId,
               senderNm: senderNm,
-              message: `${senderNm}님이 입장하셨습니다.` 
+              message: `${senderNm}님 입장.` 
             })
           );
         },
