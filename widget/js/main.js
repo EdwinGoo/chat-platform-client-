@@ -1,6 +1,7 @@
 var sock;
 var stompClient;
 
+
 document.onreadystatechange = function (e) {
   if (document.readyState === "complete") {
     console.log("document.onreadystatechange function");
@@ -11,7 +12,10 @@ document.onreadystatechange = function (e) {
 };
 window.onload = function (e) {
   console.log("hi, inside window.onload function");
+
 };
+
+
 
 // 스크립트 로드
 const loadScript = function (scriptNm, scriptObjCheck, afterCallback) {
@@ -37,6 +41,7 @@ var loadStomp = function () {
   console.log(`loadStomp is loaded`);
 };
 
+
 var loadSockJS = function () {
   console.log(`loadSockJS is loaded`);
 };
@@ -59,7 +64,12 @@ var loadChatWindow = function () {
       "</span>  " +
       "</button>    " +
       "</div>   " +
-      '<div class="chatbox__body" id="chatbox_body_content">     </div>    ' +
+      '<div class="chatbox__body" id="chatbox_body_content"> '    +
+      '<div id="chatbox_body_inner"> '+
+      '<div id="chatbox_body_bot"> '    +
+      '</div>    ' +
+      '</div>    ' +
+      '</div>    ' +
       '<form class="chatbox__credentials">      ' +
       '<div class="form-group">      ' +
       '<label for="inputAccntId">Accntid:</label>     <input type="text" class="chatbox__credentials_input" id="inputAccntId" required>     ' +
@@ -73,12 +83,17 @@ var loadChatWindow = function () {
       '<input type="hidden" id="roomId" name="roomId" value="">     ' +
       '<input type="text" id="user_input" name="user_input" class="chatbox__message" placeholder="메시지를 입력하세요."></input>     ' +
       "</div>"
+
+    +'<script type="text/javascript" src="js/conversation.js"></script>+'
+    +'<script type="text/javascript" src="js/peekobot.js"></script>'
+
   );
 
   var chatbox_div = $(".chatbox");
   var title_div = $(".chatbox__title");
   var close_bottom = $(".chatbox__title__close");
   var identity_form = $(".chatbox__credentials");
+ 
 
   function appendMessage(bodyJson) {
     console.log(bodyJson);
@@ -130,6 +145,8 @@ var loadChatWindow = function () {
     $("#roomId").val(roomId);
     return roomUuid;
   };
+
+ 
 
   function sendMessage(text) {
     var temproomID = $("#roomUuid").val();
@@ -202,7 +219,7 @@ var loadChatWindow = function () {
               type: "ENTER", // Enum 타입 정의해서 어딘가에 두고 사용할 것
               senderId: senderId,
               senderNm: senderNm,
-              message: `${senderNm}님이 입장하셨습니다.` 
+              message: `${senderNm}님 입장.` 
             })
           );
         },
