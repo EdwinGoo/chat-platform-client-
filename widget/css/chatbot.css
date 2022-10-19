@@ -29,8 +29,37 @@
     border-color:#021D3C
 }
 .chatbox__body,.chatbox__title{
-    border-bottom:none
+    /* border-bottom:none */
+    border: 1px solid hsl(0, 0%, 90%);
+    /* border-radius: 12px; */
+    box-shadow: 2px 2px 5px hsl(0, 0%, 60%);
+    /* padding: 1rem 1rem 2rem 1rem; */
+    height: var(--peekobot-height);
+    position: relative;
 }
+
+#chatbox_inner {
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    position: relative;
+    /* Hiding scrollbars is a pain. This is from: https://redstapler.co/css-hidden-scrollbar-while-scrollable-element/ */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+#chatbox_bot {
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    position: relative;
+    /* Hiding scrollbars is a pain. This is from: https://redstapler.co/css-hidden-scrollbar-while-scrollable-element/ */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+
 .chatbox__title{
     color:#fff;
     min-height:50px;
@@ -89,6 +118,7 @@
 .chatbox__title__close:hover,.chatbox__title__tray:hover{
     opacity:1
 }
+
 .chatbox__title__tray span{
     width:12px;
     height:12px;
@@ -242,4 +272,8 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+}
+
+.chatbox__message{
+    display: none;
 }
