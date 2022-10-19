@@ -37,10 +37,10 @@ const ProfileDataArea = styled.div`
   padding: 0.3rem;
 `;
 
-const ProfileColumn = styled.p`
-  font-size: 2rem;
-  padding: 0.2rem 0 0.2rem 0;
-`;
+// const ProfileColumn = styled.p`
+//   font-size: 2rem;
+//   padding: 0.2rem 0 0.2rem 0;
+// `;
 
 const ProfileData = styled.p`
   font-size: 1.5rem;
@@ -70,11 +70,10 @@ function UserDetail({ userId }) {
         setUserInfo(data);
         console.log(data);
       });
+    } else {
+      setUserInfo();
     }
-
-    return () => {
-      // console.log("");
-    };
+    return () => {};
   }, [userId]);
   return (
     <>

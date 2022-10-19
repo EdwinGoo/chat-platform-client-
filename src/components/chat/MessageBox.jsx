@@ -4,7 +4,6 @@ import useStore from "../../store/useStore";
 import { Client } from "@stomp/stompjs";
 import MessageSend from "./MessageSend";
 import Loading from "../common/Loading";
-import TelegramIcon from "@mui/icons-material/Telegram";
 import MessageList from "./MessageList";
 import palette from "../../assets/palette";
 import { instance } from "../../utils/Axios";
