@@ -1,9 +1,9 @@
 var sock;
 var stompClient;
-
-var chatbox_body = 
-`
+var chatbox_body = `
 <div id="chatbox">
+<input type="hidden" id="roomUuid" name="roomUuid" value="">     
+<input type="hidden" id="roomId" name="roomId" value="">     
 <div class="chatbox__main">
     <div class="chatbox__header">
         <div class="chatbot__icon">
@@ -44,9 +44,7 @@ var chatbox_body =
 </div>
 </div>
 `
-
-var help_body = 
-`
+var help_body = `
 <div id="chatbox">
         <div class="help__main">
             <div class="help__header">
@@ -146,6 +144,46 @@ var loadChatWindow = function () {
       }
   });
 
+  const appendMessage = (bodyJson) => {
+    if (bodyJson.type !== "MESSAGE") {
+        var t = '<p class="messages__item messages__item__system">' + bodyJson.message + "</p>";
+    } else {
+        if (bodyJson.senderId == $("#inputAccntId").val()) {
+        var t =
+            '<p class="messages__item messages__item__visitor">' +
+            bodyJson.message +
+            "</p>";
+        } else {
+        var t =
+            '<p class="messages__item messages__item__operator">' +
+            bodyJson.message +
+            "</p>";
+        }
+    }
+
+    $(".chatbox__messages").append(t);
+    $(".chatbox__send__input").val("");
+    $(".chatbox__messages").scrollTop(1e10);
+};
+
+  const sendMessage = (text) => {
+    var temproomID = $("#roomUuid").val();
+    var senderId = $("#inputAccntId").val();
+    var senderNm = $("#inputName").val();
+    stompClient.send(
+      "/chat/pub/message",
+      {},
+      JSON.stringify({
+        roomId: $("#roomId").val(),
+        roomUuid: temproomID,
+        type: "MESSAGE", // Enum 타입 정의해서 어딘가에 두고 사용할 것
+        message: text,
+        senderId: senderId,
+        senderNm: senderNm,
+      })
+    );
+  }
+
   const createRoom = (roomNm) => {
     console.log($("#helperLegacyId").val());
     var roomUuid = "";
@@ -164,8 +202,6 @@ var loadChatWindow = function () {
       contentType: "application/json",
       crossDomain: true,
       success: function (res) {
-        console.log(res);
-
         roomUuid = res.body.roomUuid;
         roomId = res.body.id;
       },
@@ -179,49 +215,6 @@ var loadChatWindow = function () {
     return roomUuid;
   };
 
-  const appendMessage = (bodyJson) => {
-    console.log(bodyJson);
-
-    if (bodyJson.type !== "MESSAGE") {
-      var t = '<p class="messages__item messages__item__system">' + bodyJson.message + "</p>";
-    } else {
-      if (bodyJson.senderId == $("#inputAccntId").val()) {
-        var t =
-          '<p class="messages__item messages__item__visitor">' +
-          bodyJson.message +
-          "</p>";
-      } else {
-        var t =
-          '<p class="messages__item messages__item__operator">' +
-          bodyJson.message +
-          "</p>";
-      }
-    }
-
-    $(".chatbox__messages").append(t);
-    $(".chatbox__send__input").val("");
-    $(".chatbox__messages").scrollTop(1e10);
-  };
-
-  function sendMessage(text) {
-    var temproomID = $("#roomUuid").val();
-    var senderId = $("#inputAccntId").val();
-    var senderNm = $("#inputName").val();
-
-    stompClient.send(
-      "/chat/pub/message",
-      {},
-      JSON.stringify({
-        roomId: $("#roomId").val(),
-        roomUuid: temproomID,
-        type: "MESSAGE", // Enum 타입 정의해서 어딘가에 두고 사용할 것
-        message: text,
-        senderId: senderId,
-        senderNm: senderNm,
-      })
-    );
-  }
-
   chat__start.on("click", function (e) {
     if (help__main.hasClass("help__active")) {
         help__main.removeClass("help__active");
@@ -232,7 +225,6 @@ var loadChatWindow = function () {
             chatbox_body
         );
     } 
-
    
     //1. 채팅 시작하기? > 회사 이름을 입력받을 지, 레거시에서 정보를 받을지
     //2. 기존에 있는 방을 조회해야하는지? 새로 생성해야하는지
@@ -241,11 +233,9 @@ var loadChatWindow = function () {
     //2-3. 새로운 방을 생성하는 기준을 정립할것? 1. 당일에 채팅을 열면 불러오기?, 상담원 종료나 학습자가 종료 버튼(생성 해야함)을 누르면 새로 부르기?
     //3. 메뉴얼(챗봇을 가장한 사기..)를 호출하는 방식에 대해 검토해야함, 최소 8월 15일전까지는 개발된 모습을 봤으면 좋겠다.
     var roomUUID = createRoom($("#inputName").val());
-
     if (roomUUID !== "" && roomUUID !== undefined) {
       var senderId = $("#inputAccntId").val();
       var senderNm = $("#inputName").val();
-
       sock = new SockJS("http://localhost:18080/chat/ws");
       stompClient = Stomp.over(sock);
       stompClient.connect(
@@ -283,14 +273,13 @@ var loadChatWindow = function () {
     setTimeout(()=>{
         var chatbox__main_temp = $(".chatbox__main");
         chatbox__main_temp.addClass("chatbox__active");
-},0)
+    },0)
 
-  });
-
-  $(".chatbox__send__input").keypress(function (e) {
+    $(".chatbox__send__input").keypress(function (e) {
     if (13 == (e.keyCode ? e.keyCode : e.which)) {
-      var message = $(".chatbox__send__input").val();
-      sendMessage(message);
+        var message = $(".chatbox__send__input").val();
+        sendMessage(message);
     }
+    });
   });
 };
