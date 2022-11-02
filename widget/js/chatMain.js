@@ -1,7 +1,8 @@
 var sock;
 var stompClient;
-var chatbox_body = `
-<div id="chatbox">
+
+
+var chatbox__main__html = `
 <input type="hidden" id="roomUuid" name="roomUuid" value="">     
 <input type="hidden" id="roomId" name="roomId" value="">     
 <div class="chatbox__main">
@@ -38,15 +39,10 @@ var chatbox_body = `
         </div>
     </div>
 </div>
-<div class="help__button">
-    <button>Branch-1</button>
-</div>
-</div>
-</div>
 `
-var help_body = `
+var help__main__html = `
 <div id="chatbox">
-        <div class="help__main">
+    <div class="help__main">
             <div class="help__header">
                 <div class="help__title">현대오토에버</div>
                 <div class="close__icon">
@@ -75,12 +71,48 @@ var help_body = `
             <div class="chat__start">
                 <div>새 문의하기</div>
             </div>
+    </div>
+    <input type="hidden" id="roomUuid" name="roomUuid" value="">     
+    <input type="hidden" id="roomId" name="roomId" value="">     
+    <div class="chatbox__main">
+        <div class="chatbox__header">
+            <div class="chatbot__icon">
+                <svg align="center" width="20" height="20" viewBox="0 0 20 17" fill="none"
+                    xmlns="http://www.w3.org/2000/svg" foundation="[object Object]" defaultopacity="1"
+                    hoveredopacity="0.5" margintop="0" marginright="0" marginbottom="0" marginleft="0"
+                    withtheme="true">
+                    <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"
+                        d="M9.17255 16.4226C8.84711 16.748 8.31947 16.748 7.99404 16.4226L2.1607 10.5893C1.83527 10.2638 1.83527 9.73619 2.1607 9.41075L7.99404 3.57742C8.31947 3.25198 8.84711 3.25198 9.17255 3.57742C9.49799 3.90285 9.49799 4.43049 9.17255 4.75593L3.92847 10L9.17255 15.2441C9.49799 15.5695 9.49799 16.0972 9.17255 16.4226Z">
+                    </path>
+                </svg>
+            </div>
+            <p class="chatbox__title">현대오토에버</p>
+            <div class="close__icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    foundation="[object Object]" class="InnerIconstyled__Icon-ch-front__sc-197h5bb-0 jeqCBZ"
+                    defaultopacity="1" hoveredopacity="1" margintop="0" marginright="0" marginbottom="0"
+                    marginleft="0" withtheme="true">
+                    <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"
+                        d="M16.4818 4.69668L15.3033 3.51817L10 8.82147L4.69671 3.51817L3.5182 4.69668L8.8215 9.99998L3.51819 15.3033L4.6967 16.4818L10 11.1785L15.3033 16.4818L16.4818 15.3033L11.1785 9.99998L16.4818 4.69668Z">
+                    </path>
+                </svg>
+            </div>
         </div>
-        <div class="help__button">
-            <button>Branch-1</button>
+        <div class="chatbox__messages">
+            <div>
+            </div>
+        </div>
+        <div class="chatbox__footer">
+            <div class="chatbox__send">
+                <input class="chatbox__send__input" placeholder="메시지를 입력하세요."></input>
+            </div>
         </div>
     </div>
+    
+    <div class="help__button">
+        <button>Branch-1</button>
     </div>
+</div>
 `
 
 document.onreadystatechange = function (e) {
@@ -128,21 +160,10 @@ var loadChatWindow = function () {
   console.log(`loadChatWindow is loaded`);
 
   $("body").append(
-    help_body
+    help__main__html
   );
 
-  var help__button = $(".help__button");
-  var help__main = $(".help__main");
-  var chat__start = $(".chat__start");
 
-
-  help__button.on("click", function () {
-      if (help__main.hasClass("help__active")) {
-        help__main.removeClass("help__active");
-      } else {
-        help__main.addClass("help__active");
-      }
-  });
 
   const appendMessage = (bodyJson) => {
     if (bodyJson.type !== "MESSAGE") {
@@ -160,7 +181,6 @@ var loadChatWindow = function () {
             "</p>";
         }
     }
-
     $(".chatbox__messages").append(t);
     $(".chatbox__send__input").val("");
     $(".chatbox__messages").scrollTop(1e10);
@@ -215,15 +235,27 @@ var loadChatWindow = function () {
     return roomUuid;
   };
 
+  var help__button = $(".help__button");
+  var help__main = $(".help__main");
+
+  help__button.on("click", function () {
+    if(!help__button.hasClass("help__button__deactive")){
+        help__button.addClass("help__button__deactive");
+        help__main.addClass("help__active");
+    }
+  });
+
+
+  var chat__start = $(".chat__start");
+
   chat__start.on("click", function (e) {
+    var help__main = $(".help__active");
     if (help__main.hasClass("help__active")) {
         help__main.removeClass("help__active");
-        help__main.addClass("help__deactive");
-        const rmchatbox = document.getElementById('chatbox');
-        rmchatbox.remove();
-        $("body").append(
-            chatbox_body
-        );
+        setTimeout(()=>{
+            var chatbox__main_temp = $(".chatbox__main");
+            chatbox__main_temp.addClass("chatbox__active");
+        },0)
     } 
    
     //1. 채팅 시작하기? > 회사 이름을 입력받을 지, 레거시에서 정보를 받을지
@@ -258,7 +290,7 @@ var loadChatWindow = function () {
               type: "ENTER", // Enum 타입 정의해서 어딘가에 두고 사용할 것
               senderId: senderId,
               senderNm: senderNm,
-              message: `${senderNm}님 입장`,
+              message: `${senderNm}님이 입장하셨습니다.`,
             })
           );
         },
@@ -270,10 +302,6 @@ var loadChatWindow = function () {
       var t = $("#inputName").val();
       $("#inputEmail").val();
     }
-    setTimeout(()=>{
-        var chatbox__main_temp = $(".chatbox__main");
-        chatbox__main_temp.addClass("chatbox__active");
-    },0)
 
     $(".chatbox__send__input").keypress(function (e) {
     if (13 == (e.keyCode ? e.keyCode : e.which)) {

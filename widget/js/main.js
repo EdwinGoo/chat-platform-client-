@@ -1,7 +1,6 @@
 var sock;
 var stompClient;
 
-
 document.onreadystatechange = function (e) {
   if (document.readyState === "complete") {
     console.log("document.onreadystatechange function");
@@ -12,10 +11,7 @@ document.onreadystatechange = function (e) {
 };
 window.onload = function (e) {
   console.log("hi, inside window.onload function");
-
 };
-
-
 
 // 스크립트 로드
 const loadScript = function (scriptNm, scriptObjCheck, afterCallback) {

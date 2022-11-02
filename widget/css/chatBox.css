@@ -1,13 +1,20 @@
 #chatbox {
-    position: absolute;
-    bottom: 30px;
-    right: 30px;
     font-size: 15px;
     font-family: "NotoSansKR", "NotoSansJP", "-apple-system", "BlinkMacSystemFont", "Helvetica Neue", "맑은 고딕", "Yu Gothic", "Segoe UI", "Roboto", "system-ui", "sans-serif";
 }
 
 .help__button {
+    z-index: 3333;
+    opacity: 1;
     text-align: right;
+    position:absolute;
+    right: 20px;
+    bottom: 30px;
+}
+
+.help__button__deactive {
+    z-index: -3333 !important;
+    opacity: 0 !important;
 }
 
 .close__icon {
@@ -17,12 +24,15 @@
 }
 
 .help__main {
+    position:absolute;
+    right: 20px;
+    bottom: 30px;
     display: flex;
     flex-direction: column;
     background: #fff;
     width: 350px;
     height: 550px;
-    z-index: -123456;
+    z-index: -2222;
     opacity: 0;
     transition: all .3s ease-in-out;
     overflow: hidden;
@@ -34,12 +44,8 @@
 
 .help__active {
     transform: translateY(-0px);
-    z-index: 123456;
+    z-index: 2222;
     opacity: 1;
-}
-
-.help__deactive {
-    visibility: hidden;
 }
 
 .help__header {
@@ -100,12 +106,15 @@
 }
 
 .chatbox__main {
+    position:absolute;
+    right: 20px;
+    bottom: 30px;
     display: flex;
     flex-direction: column;
     background: #fff;
     width: 350px;
     height: 550px;
-    z-index: -123456;
+    z-index: -1111;
     opacity: 0;
     transition: all .5s ease-in-out;
     overflow: hidden;
@@ -117,7 +126,7 @@
 
 .chatbox__active {
     transform: translateY(0px);
-    z-index: 123456;
+    z-index: 1111;
     opacity: 1;
 }
 
@@ -146,7 +155,6 @@
     font-size: 18px;
 }
 
-/* MESSAGES */
 .chatbox__messages {
     margin-top: auto;
     display: flex;
@@ -177,6 +185,8 @@
 .messages__item__system{
     margin:auto;
     color: #989CA8;
+    font-size: 12px;
+    font-weight: 400;
 }
 
 .chatbox__footer {
