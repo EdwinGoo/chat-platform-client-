@@ -1,45 +1,6 @@
 var sock;
 var stompClient;
 
-
-var chatbox__main__html = `
-<input type="hidden" id="roomUuid" name="roomUuid" value="">     
-<input type="hidden" id="roomId" name="roomId" value="">     
-<div class="chatbox__main">
-    <div class="chatbox__header">
-        <div class="chatbot__icon">
-            <svg align="center" width="20" height="20" viewBox="0 0 20 17" fill="none"
-                xmlns="http://www.w3.org/2000/svg" foundation="[object Object]" defaultopacity="1"
-                hoveredopacity="0.5" margintop="0" marginright="0" marginbottom="0" marginleft="0"
-                withtheme="true">
-                <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"
-                    d="M9.17255 16.4226C8.84711 16.748 8.31947 16.748 7.99404 16.4226L2.1607 10.5893C1.83527 10.2638 1.83527 9.73619 2.1607 9.41075L7.99404 3.57742C8.31947 3.25198 8.84711 3.25198 9.17255 3.57742C9.49799 3.90285 9.49799 4.43049 9.17255 4.75593L3.92847 10L9.17255 15.2441C9.49799 15.5695 9.49799 16.0972 9.17255 16.4226Z">
-                </path>
-            </svg>
-        </div>
-        <p class="chatbox__title">현대오토에버</p>
-        <div class="close__icon">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
-                foundation="[object Object]" class="InnerIconstyled__Icon-ch-front__sc-197h5bb-0 jeqCBZ"
-                defaultopacity="1" hoveredopacity="1" margintop="0" marginright="0" marginbottom="0"
-                marginleft="0" withtheme="true">
-                <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"
-                    d="M16.4818 4.69668L15.3033 3.51817L10 8.82147L4.69671 3.51817L3.5182 4.69668L8.8215 9.99998L3.51819 15.3033L4.6967 16.4818L10 11.1785L15.3033 16.4818L16.4818 15.3033L11.1785 9.99998L16.4818 4.69668Z">
-                </path>
-            </svg>
-        </div>
-    </div>
-    <div class="chatbox__messages">
-        <div>
-        </div>
-    </div>
-    <div class="chatbox__footer">
-        <div class="chatbox__send">
-            <input class="chatbox__send__input" placeholder="메시지를 입력하세요."></input>
-        </div>
-    </div>
-</div>
-`
 var help__main__html = `
 <div id="chatbox">
     <div class="help__main">
@@ -56,12 +17,12 @@ var help__main__html = `
                     </svg>
                 </div>
             </div>
-            <div class="help_hello">
+            <div class="help__hello">
                 안녕하세요. 오토에버 이캠퍼스 담당자입니다.<br>
                 궁굼한 점은 언제든지 문의해주세요.
             </div>
-            <div class="help_sqbox">
-                <div class="help_sub_title">공지사항</div>
+            <div class="help__sqbox">
+                <div class="help__sub__title">공지사항</div>
                 <b>구윤모 (10/2)</b>
                 <div>현대오토에버 전사교육이 예정되어있습니다 <br> 학습 예정 과정을 참고하시어 수강 기간 내에 수료.. </div>
                 <br />
@@ -76,7 +37,7 @@ var help__main__html = `
     <input type="hidden" id="roomId" name="roomId" value="">     
     <div class="chatbox__main">
         <div class="chatbox__header">
-            <div class="chatbot__icon">
+            <div class="back__icon">
                 <svg align="center" width="20" height="20" viewBox="0 0 20 17" fill="none"
                     xmlns="http://www.w3.org/2000/svg" foundation="[object Object]" defaultopacity="1"
                     hoveredopacity="0.5" margintop="0" marginright="0" marginbottom="0" marginleft="0"
@@ -163,8 +124,6 @@ var loadChatWindow = function () {
     help__main__html
   );
 
-
-
   const appendMessage = (bodyJson) => {
     if (bodyJson.type !== "MESSAGE") {
         var t = '<p class="messages__item messages__item__system">' + bodyJson.message + "</p>";
@@ -235,8 +194,41 @@ var loadChatWindow = function () {
     return roomUuid;
   };
 
+  const offStomp = () =>{
+    if(stompClient){
+        // console.log(stompClient);
+        stompClient.disconnect();
+        // console.log(stompClient);
+    }
+  }
+
   var help__button = $(".help__button");
   var help__main = $(".help__main");
+  var chat__start = $(".chat__start");
+  var close__icon = $(".close__icon");
+  var chatbox__main = $(".chatbox__main");
+  var back__icon = $(".back__icon");
+
+  back__icon.on("click", function () {
+    if(chatbox__main.hasClass("chatbox__active")){
+        help__main.addClass("help__active");
+        chatbox__main.removeClass("chatbox__active")
+    } 
+    offStomp();
+  });
+
+  close__icon.on("click", function () {
+    if(help__button.hasClass("help__button__deactive")){
+        if(help__main.hasClass("help__active")){
+            help__main.removeClass("help__active")
+        }
+        if(chatbox__main.hasClass("chatbox__active")){
+            chatbox__main.removeClass("chatbox__active")
+        } 
+        help__button.removeClass("help__button__deactive");
+    }
+    offStomp();
+  });
 
   help__button.on("click", function () {
     if(!help__button.hasClass("help__button__deactive")){
@@ -245,19 +237,14 @@ var loadChatWindow = function () {
     }
   });
 
-
-  var chat__start = $(".chat__start");
-
   chat__start.on("click", function (e) {
+    $(".messages__item").remove();
+
     var help__main = $(".help__active");
     if (help__main.hasClass("help__active")) {
         help__main.removeClass("help__active");
-        setTimeout(()=>{
-            var chatbox__main_temp = $(".chatbox__main");
-            chatbox__main_temp.addClass("chatbox__active");
-        },0)
+        chatbox__main.addClass("chatbox__active");
     } 
-   
     //1. 채팅 시작하기? > 회사 이름을 입력받을 지, 레거시에서 정보를 받을지
     //2. 기존에 있는 방을 조회해야하는지? 새로 생성해야하는지
     //2-1. 기존 방을 부른다면, 채팅 리스트를 읽어서 모두 append
