@@ -192,6 +192,7 @@
     margin: auto;
     color: #989CA8;
     font-weight: 400;
+    font-size: 0.8rem !important;
 }
 
 .chatbox__footer {
@@ -205,6 +206,11 @@
     height: 40px;
     display: flex;
     align-items: center;
+    visibility: hidden;
+}
+
+.chatbox__send__active {
+    visibility: visible !important;
 }
 
 .chatbox__send__input {
@@ -222,7 +228,6 @@
       display: inline-flex;
       -webkit-box-pack: end;
       justify-content: flex-end;
-      background-color: rgb(255, 255, 255);
       margin-right:0.5rem;
 }
 .action__buttons {
@@ -232,7 +237,9 @@
 }
 
 .action__buttons__acitve {
-    background-color: #74bcff;
+    background-color: #74bcff !important;
+    color: white !important;
+    cursor: not-allowed !important;
 }
 
 .action__button {
@@ -247,9 +254,9 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 12px;
-    transition: box-shadow 0.2s ease-out 0s, border-color 0.2s ease-out 0s;
     font-size: 1rem;
+    background-color: white;
     line-height: 13px !important;
 }
