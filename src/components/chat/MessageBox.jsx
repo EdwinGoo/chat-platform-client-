@@ -56,12 +56,11 @@ const MessageBoxMain = styled.div`
 `;
 
 const JoinButton = styled.button`
-  color: ${palette.blue[6]};
   font-size: 1rem;
   height: 2.5rem;
   background: ${palette.navy};
   outline: none;
-  border: none;
+  border: solid 1px ${palette.gray[4]};
   border-radius: 8px;
   color: ${palette.white};
   transition: all 0.4s background ease-in;

@@ -23,14 +23,13 @@ var help__main__html = `
             <div class="help__sqbox">
                 <div class="help__sub__title">공지사항</div>
                 <b>구윤모 (10/2)</b>
-                <div>현대오토에버 전사교육이 예정되어있습니다 <br> 학습 예정 과정을 참고하시어 수강 기간 내에 수료.. </div>
+                <div>현대오토에버 전사교육이 예정되어있습니다 <br> 학습 예정 과정을 참고하시어 수강 기간 내... </div>
                 <br />
                 <b>양진아 (10/1)</b>
-                <div>금일 17시 부터 현대오토에버 스트리밍서버 <br> 패치가 예정되어있습니다. 패치 중 진도율 업데이... </div>
+                <div>금일 17시 부터 현대오토에버 스트리밍서버 <br> 패치가 예정되어있습니다. 패치 중 진도율... </div>
             </div>
             <div class="chat__start">
-                <div>새 문의하기</div>
-            </div>
+            새 문의하기            </div>
     </div>
     <input type="hidden" id="roomUuid" name="roomUuid" value="">     
     <input type="hidden" id="roomId" name="roomId" value="">     
@@ -58,10 +57,10 @@ var help__main__html = `
                 </svg>
             </div>
         </div>
-        <div class="chatbox__messages">
-            <div>
-            </div>
+        <div class="chatbox__messages_wrapper">
+           
         </div>
+
         <div class="chatbox__footer">
             <div class="chatbox__send">
                 <input class="chatbox__send__input" placeholder="메시지를 입력하세요."></input>
@@ -124,26 +123,57 @@ const loadChatWindow = () => {
     console.log(`loadChatWindow is loaded`);
     $("body").append(help__main__html);
 
+    /*
+    * function name : appendMessage
+    * hell script
+    * 챗봇 메시지 와 소켓을 통해 나간 메시지를 구분한다.
+    */
+    const appendMessage = (parentChatBotData, isBot) => {
+        if (isBot == 'Y') {
+            // 메시지 구성
+            var t = ` <div class="chatbox__messages">`
+            var temp_botMessage = `<p class="messages__item messages__item__operator"> ${parentChatBotData.message} </p>`
+            t +=temp_botMessage + `</div>`;
 
-    const appendMessage = (bodyJson) => {
-        if (bodyJson.type !== "MESSAGE") {
-            var t = '<p class="messages__item messages__item__system">' + bodyJson.message +
-                    "</p>";
-        } 
-        else {
-            if (bodyJson.senderId == $("#inputAccntId").val()) {
-                var t = '<p class="messages__item messages__item__visitor">' + bodyJson.message +
-                        "</p>";
+            // parent 버튼을 제외한 나머지 버튼은 hidden? 처리한다?
+            $('.action__button').each(function (index, item) {
+                if(item.value != parentChatBotData.id && !$(this).hasClass("action__buttons__acitve")) {
+                    this.remove()
+                } else {
+                    $(this).addClass("action__buttons__acitve");
+                    console.log(this)
+                }
+           });	
+            // 선택 옵션 구성
+            var childDdata = parentChatBotData.childChatBotData;
+            t += `<div class="action__button__wrapper"><div class="action__buttons">`
+            for(var item in childDdata){
+                t +=`<button class="action__button" onclick="getNextChatbotMessage(${childDdata[item].id})" value= ${childDdata[item].id}>${childDdata[item].optnNm}</button>`;
+            }
+            if (parentChatBotData.parentId != null) {
+                t +=`<button class="action__button" onclick="getNextChatbotMessage(${parentChatBotData.parentId})" value= ${parentChatBotData.parentId}><img src="https://cf.channel.io/asset/emoji/images/80/arrow_left.png" alt="arrow_left" data-context-type="emoji" size="18" width="18" height="18" class="Emojistyled__Emoji-ch-front__sc-kwanmh-0 dIpZCO"> 이전단계</button>`;
+            }
+            t +=  `</div></div>`
+        } else {
+            if (bodyJson.type == "ENTER" || bodyJson.type == "EXIT") {
+                var t = `<div class="chatbox__messages"><p class="messages__item messages__item__visitor"> ${bodyJson.message} </p></div>`;
             } else {
-                var t = '<p class="messages__item messages__item__operator">' + bodyJson.message +
-                        "</p>";
+                if (bodyJson.senderId == $("#inputAccntId").val()) {
+                    var t = `<div class="chatbox__messages"><p class="messages__item messages__item__visitor"> ${bodyJson.message} </p></div>`;
+                } else {
+                    var t = `<div class="chatbox__messages"><p class="messages__item messages__item__operator">  ${bodyJson.message} </p></div>`;
+                }
             }
         }
-        $(".chatbox__messages").append(t);
+        $(".chatbox__messages_wrapper").append(t);
         $(".chatbox__send__input").val("");
-        $(".chatbox__messages").scrollTop(1e10);
+        $(".chatbox__messages_wrapper").scrollTop(1e10);
     };
 
+    getNextChatbotMessage = (id) => {
+        appendMessage(getChatbotMessage(id), "Y");
+    }
+    
     const sendMessage = (text) => {
         var temproomID = $("#roomUuid").val();
         var senderId = $("#inputAccntId").val();
@@ -230,58 +260,65 @@ const loadChatWindow = () => {
         }
     });
 
+    $(".chatbox__send__input").keypress(function (e) {
+        if (13 == (
+            e.keyCode
+                ? e.keyCode
+                : e.which
+        )) {
+            var message = $(".chatbox__send__input").val();
+            sendMessage(message);
+        }
+    });
     chat__start.on("click", function (e) {
-        getChatBotData();
+        $(".chatbox__messages").remove();
+        $(".action__button__wrapper").remove();
 
-        helloChatBot();
-
-
-        $(".messages__item").remove();
         var help__main = $(".help__active");
         if (help__main.hasClass("help__active")) {
             help__main.removeClass("help__active");
             chatbox__main.addClass("chatbox__active");
         }
-        //1. 채팅 시작하기? > 회사 이름을 입력받을 지, 레거시에서 정보를 받을지
-        // 2. 기존에 있는 방을 조회해야하는지? 새로 생성해야하는지 2-1. 기존 방을 부른다면, 채팅 리스트를 읽어서 모두 append 2-2.
-        // 새로 생성하면, 아무래도 새로고침등의 이슈가 있긴한다. 2-3. 새로운 방을 생성하는 기준을 정립할것? 1. 당일에 채팅을 열면
-        // 불러오기?, 상담원 종료나 학습자가 종료 버튼(생성 해야함)을 누르면 새로 부르기?
-        //3. 메뉴얼(챗봇을 가장한 사기..)를 호출하는 방식에 대해 검토해야함, 최소 8월 15일전까지는 개발된 모습을 봤으면 좋겠다.
-        var roomUUID = createRoom($("#inputName").val());
-        if (roomUUID !== "" && roomUUID !== undefined) {
-            var senderId = $("#inputAccntId").val();
-            var senderNm = $("#inputName").val();
-            sock = new SockJS("http://localhost:18080/chat/ws");
-            stompClient = Stomp.over(sock);
-            stompClient.connect({}, function (frame) {
-                stompClient.subscribe("/chat/sub/room/" + roomUUID, function (message) {
-                    var bodyJson = JSON.parse(message.body);
-                    console.log(bodyJson);
-                    appendMessage(bodyJson);
-                });
-                stompClient.send("/chat/pub/message", {}, JSON.stringify({
-                    roomId: $("#roomId").val(), roomUuid: roomUUID, type: "ENTER", // Enum 타입 정의해서 어딘가에 두고 사용할 것
-                    senderId: senderId,
-                    senderNm: senderNm,
-                    message: `${senderNm}님이 입장하셨습니다.`
-                }));
-            }, function (error) {
-                alert("error " + error);
-            });
-            e.preventDefault();
-            var t = $("#inputName").val();
-            $("#inputEmail").val();
-        }
-
-        $(".chatbox__send__input").keypress(function (e) {
-            if (13 == (
-                e.keyCode
-                    ? e.keyCode
-                    : e.which
-            )) {
-                var message = $(".chatbox__send__input").val();
-                sendMessage(message);
-            }
-        });
+        appendMessage(getChatbotMessage(1), "Y");
     });
+
+    // chat__start.on("click", function (e) {
+    //     getChatbotMessage(1);
+    //     helloChatBot();
+
+    //     $(".messages__item").remove();
+    //     var help__main = $(".help__active");
+    //     if (help__main.hasClass("help__active")) {
+    //         help__main.removeClass("help__active");
+    //         chatbox__main.addClass("chatbox__active");
+    //     }
+    //     //1. 채팅 시작하기? > 회사 이름을 입력받을 지, 레거시에서 정보를 받을지
+    //     // 2. 기존에 있는 방을 조회해야하는지? 새로 생성해야하는지 2-1. 기존 방을 부른다면, 채팅 리스트를 읽어서 모두 append 2-2.
+    //     // 새로 생성하면, 아무래도 새로고침등의 이슈가 있긴한다. 2-3. 새로운 방을 생성하는 기준을 정립할것? 1. 당일에 채팅을 열면
+    //     // 불러오기?, 상담원 종료나 학습자가 종료 버튼(생성 해야함)을 누르면 새로 부르기?
+    //     //3. 메뉴얼(챗봇을 가장한 사기..)를 호출하는 방식에 대해 검토해야함, 최소 8월 15일전까지는 개발된 모습을 봤으면 좋겠다.
+    //     var roomUUID = createRoom($("#inputName").val());
+    //     if (roomUUID !== "" && roomUUID !== undefined) {
+    //         var senderId = $("#inputAccntId").val();
+    //         var senderNm = $("#inputName").val();
+    //         sock = new SockJS("http://localhost:18080/chat/ws");
+    //         stompClient = Stomp.over(sock);
+    //         stompClient.connect({}, function (frame) {
+    //             stompClient.subscribe("/chat/sub/room/" + roomUUID, function (message) {
+    //                 var bodyJson = JSON.parse(message.body);
+    //                 console.log(bodyJson);
+    //                 appendMessage(bodyJson, "N");
+    //             });
+    //             // stompClient.send("/chat/pub/message", {}, JSON.stringify({
+    //             //     roomId: $("#roomId").val(), roomUuid: roomUUID, type: "ENTER", // Enum 타입 정의해서 어딘가에 두고 사용할 것
+    //             //     senderId: senderId,
+    //             //     senderNm: senderNm,
+    //             //     message: `${senderNm}님이 입장하셨습니다.`
+    //             // }));
+    //         }, function (error) {
+    //             alert("error " + error);
+    //         });
+    //         e.preventDefault();
+    //     }
+    // });
 };
