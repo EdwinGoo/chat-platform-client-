@@ -80,7 +80,7 @@ document.onreadystatechange = function (e) {
         loadScript("./lib/jquery.min.js", window.jQuery, loadChatWindow);
         loadScript("./lib/sockjs.min.js", window.SockJS, loadSockJS);
         loadScript("./lib/stomp.min.js", window.Stomp, loadStomp);
-        loadScript("./js/chatBot.js", window.getChatBotData, loadChatBotJS);
+        loadScript("./js/chatBoxBot.js", window.getChatBotData, loadChatBotJS);
     }
 };
 
