@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
-import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import palette from "../../assets/palette";
 
 // import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
@@ -8,8 +7,8 @@ import palette from "../../assets/palette";
 const MessageSendForm = styled.form`
   display: flex;
   background: #ffffff;
-  border: none;
-  border-radius: 5px;
+  border: solid 1px ${palette.gray[4]};
+  border-radius: 8px;
   height: 2.4rem;
   input {
     background: none;
@@ -47,7 +46,6 @@ const MessageSendForm = styled.form`
 
 const MessageSendWrapper = styled.div`
   padding: 0.1rem;
-  background: ${palette.navy};
   border-radius: 8px;
 `;
 

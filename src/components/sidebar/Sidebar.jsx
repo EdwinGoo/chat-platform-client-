@@ -11,7 +11,7 @@ const SidebarWrapper = styled.nav`
   margin-top: 1rem;
   display: flex;
   flex-direction: column;
-  font-weight: 500;
+  font-weight: 400;
   align-items: center;
 `;
 // const Title = styled.div`
@@ -33,7 +33,7 @@ const RouterWrapper = styled.div`
     border-radius: 5px;
     background: #fefefe;
     color: ${palette.navy};
-    font-weight: 900;
+    font-weight: 700;
   }
   a {
     display: flex;
@@ -90,14 +90,14 @@ function Sidebar() {
             className={({ isActive }) => (isActive ? "link-active" : "link")}
           >
             <MenuBookIcon />
-            <LinkNm>가이드설정</LinkNm>
+            <LinkNm>챗봇-플로우</LinkNm>
           </NavLink>
           <NavLink
             to="/users"
             className={({ isActive }) => (isActive ? "link-active" : "link")}
           >
             <PeopleAltIcon />
-            <LinkNm>사용자관리</LinkNm>
+            <LinkNm>사용자 관리</LinkNm>
           </NavLink>
         </RouterWrapper>
       </SidebarWrapper>

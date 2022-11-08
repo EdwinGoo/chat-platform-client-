@@ -9,12 +9,12 @@ const UserDetailWrapper = styled.div`
   flex-direction: column;
   flex: 1;
   flex-basis: 70%;
+  margin: 0 0 0 0.5rem;
 `;
 const UserDetailArea = styled.div`
   background: #ffffff;
   border-top-left-radius: 5px;
   height: 75%;
-  margin: 0 0 0 0.5rem;
   border-radius: 7px;
   border: solid 1px ${palette.gray[4]};
 `;
@@ -88,7 +88,7 @@ function UserDetail({ userId }) {
               <ProfileData>{userInfo?.userNm}</ProfileData>
             </ProfileDataArea>
           </ProfileHeader>
-          <ProfileHeader>wte</ProfileHeader>
+          <ProfileHeader></ProfileHeader>
         </UserDetailArea>
       </UserDetailWrapper>
     </>

@@ -1,6 +1,7 @@
 import { useUserStore } from "./store/useUserStore";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Chat from "./components/chat/Chat";
+import ManageChatbot from "./components/chatbot/ManageChatbot";
 import Users from "./components/users/Users";
 import Sidebar from "./components/sidebar/Sidebar";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -31,7 +32,7 @@ function App() {
             <Routes>
               <Route path="dashboard" element={<NotFoundPage />} />
               <Route path="chat" element={<Chat />} />
-              <Route path="autoanswer" element={<NotFoundPage />} />
+              <Route path="autoanswer" element={<ManageChatbot />} />
               <Route path="users" element={<Users />} />
               <Route path="401" element={<UnauthorizedPage />} />
               <Route path="403" element={<Forbidden />} />

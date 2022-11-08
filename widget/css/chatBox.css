@@ -179,20 +179,21 @@
 .messages__item__operator {
     margin-right: auto;
     margin-left: 1rem;
-    background: #012B5C;
-    color: white;
+    background: #e9ecef;
 }
 
 .messages__item__visitor {
     margin-left: auto;
-    background: #e9ecef;
+    background: #012B5C;
+    color: white;
 }
 
 .messages__item__system {
     margin: auto;
-    color: #989CA8;
+    color: #8a8b8b;
     font-weight: 400;
     font-size: 0.8rem !important;
+    text-align: center;
 }
 
 .chatbox__footer {

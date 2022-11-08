@@ -9,9 +9,8 @@ const StyledSubTitle = styled.div`
   margin-right: auto;
   font-size: var(--sub-title-font-size);
   color: #000000;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 0.5rem;
-  padding: 0.9rem 0 0.9rem 0.8rem;
   border-radius: 9px;
 `;
 

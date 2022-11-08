@@ -8,6 +8,8 @@ import MessageList from "./MessageList";
 import palette from "../../assets/palette";
 import { instance } from "../../utils/Axios";
 import { useUserStore } from "../../store/useUserStore";
+import SubTitle from "../common/SubTitle";
+
 const brokerURL = "ws://localhost:18080/chat/ws/websocket"; // ? websocket
 const subURL = "/chat/sub/room/";
 const pubURL = "/chat/pub/message";
@@ -205,7 +207,7 @@ function MessageBox() {
   return (
     <>
       <MessageBoxWrapper>
-        <MessageBoxHeader>HelpBox</MessageBoxHeader>
+        <SubTitle>HelpBox</SubTitle>
         <MessageBoxMain ref={scrollRef}>
           {selectedRoom !== "" ? (
             <MessageList

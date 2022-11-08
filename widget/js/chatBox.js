@@ -58,9 +58,7 @@ var help__main__html = `
             </div>
         </div>
         <div class="chatbox__messages_wrapper">
-           
         </div>
-
         <div class="chatbox__footer">
             <div class="chatbox__send">
                 <input class="chatbox__send__input" placeholder="문의하실 내용을 남겨주세요."></input>
@@ -133,32 +131,35 @@ const loadChatWindow = () => {
             // 메시지 구성
             var t = ` <div class="chatbox__messages">`
             var temp_botMessage = `<p class="messages__item messages__item__operator"> ${bodyJson.message} </p>`
-            t +=temp_botMessage + `</div>`;
+            t += temp_botMessage + `</div>`;
 
             // parent 버튼을 제외한 나머지 버튼은 remove
             $('.action__button').each(function (index, item) {
-                if(item.value != bodyJson.id && !$(this).hasClass("action__buttons__acitve")) {
+                if (item.value != bodyJson.id && !$(this).hasClass("action__buttons__acitve")) {
                     this.remove()
                 } else {
                     $(this).addClass("action__buttons__acitve");
                     $(this).attr('disabled', true);
                 }
-           });	
+            });
             // 선택 옵션 구성
             var childDdata = bodyJson.childChatBotData;
             t += `<div class="action__button__wrapper"><div class="action__buttons">`
-            for(var item in childDdata){
-                t +=`<button class="action__button" onclick="getNextChatbotMessage(${childDdata[item].id})" value= ${childDdata[item].id}>${childDdata[item].optnNm}</button>`;
+            for (var item in childDdata) {
+                t += `<button class="action__button" onclick="getNextChatbotMessage(${childDdata[item]
+                    .id})" value= ${childDdata[item]
+                    .id}>${childDdata[item]
+                    .optnNm}</button>`;
             }
             if (bodyJson.parentId != null) {
-                t +=`<button class="action__button" onclick="getNextChatbotMessage(${bodyJson.parentId})" value= ${bodyJson.parentId}><img src="https://cf.channel.io/asset/emoji/images/80/arrow_left.png" alt="arrow_left" data-context-type="emoji" size="18" width="18" height="18" class="Emojistyled__Emoji-ch-front__sc-kwanmh-0 dIpZCO"> 이전단계</button>`;
-            } else if (bodyJson.parentId == null &&  !$(".chatbox__send").hasClass("chatbox__send__active")){
-                t +=`<button class="action__button" onclick="onChatStream();">다른 종류의 문의가 있어요.</button>`;
-            } 
-            t +=  `</div></div>`
+                t += `<button class="action__button" onclick="getNextChatbotMessage(${bodyJson.parentId})" value= ${bodyJson.parentId}><img src="https://cf.channel.io/asset/emoji/images/80/arrow_left.png" alt="arrow_left" data-context-type="emoji" size="18" width="18" height="18" class="Emojistyled__Emoji-ch-front__sc-kwanmh-0 dIpZCO"> 이전단계</button>`;
+            } else if (bodyJson.parentId == null && !$(".chatbox__send").hasClass("chatbox__send__active")) {
+                t += `<button class="action__button" onclick="onChatStream();">다른 종류의 문의가 있어요.</button>`;
+            }
+            t += `</div></div>`
         } else {
             if (bodyJson.type == "ENTER" || bodyJson.type == "EXIT") {
-                var t = `<div class="chatbox__messages"><p class="messages__item messages__item__system"> ${bodyJson.message} </p></div>`;
+                var t = `<div class="chatbox__messages"><p class="messages__item messages__item__system"> ${bodyJson.message} <br> 채팅창을 닫을 경우 연결이 종료됩니다.</p></div>`;
             } else {
                 if (bodyJson.senderId == $("#inputAccntId").val()) {
                     var t = `<div class="chatbox__messages"><p class="messages__item messages__item__visitor"> ${bodyJson.message} </p></div>`;
@@ -175,7 +176,7 @@ const loadChatWindow = () => {
     getNextChatbotMessage = (id) => {
         appendMessage(getChatbotMessage(id), "Y");
     }
-    
+
     const sendMessage = (text) => {
         var temproomID = $("#roomUuid").val();
         var senderId = $("#inputAccntId").val();
@@ -284,10 +285,9 @@ const loadChatWindow = () => {
         appendMessage(getChatbotMessage(1), "Y");
     });
 
-    onChatStream =  () => {
-
+    onChatStream = () => {
         console.log(stompClient)
-        if(stompClient == undefined) {
+        if (stompClient == undefined) {
             $(".chatbox__send").addClass("chatbox__send__active")
             var roomUUID = createRoom($("#inputName").val());
             if (roomUUID !== "" && roomUUID !== undefined) {
@@ -303,9 +303,7 @@ const loadChatWindow = () => {
                         appendMessage(bodyJson, "N");
                     });
                     stompClient.send("/chat/pub/message", {}, JSON.stringify({
-                        roomId: $("#roomId").val(), 
-                        roomUuid: roomUUID, 
-                        type: "ENTER", // Enum 타입 정의해서 어딘가에 두고 사용할 것
+                        roomId: $("#roomId").val(), roomUuid: roomUUID, type: "ENTER", // Enum 타입 정의해서 어딘가에 두고 사용할 것
                         senderId: senderId,
                         senderNm: senderNm,
                         message: `${senderNm}님 연결되었습니다.`
@@ -321,6 +319,5 @@ const loadChatWindow = () => {
         // 새로 생성하면, 아무래도 새로고침등의 이슈가 있긴한다. 2-3. 새로운 방을 생성하는 기준을 정립할것? 1. 당일에 채팅을 열면
         // 불러오기?, 상담원 종료나 학습자가 종료 버튼(생성 해야함)을 누르면 새로 부르기?
         //3. 메뉴얼(챗봇을 가장한 사기..)를 호출하는 방식에 대해 검토해야함, 최소 8월 15일전까지는 개발된 모습을 봤으면 좋겠다.
-        
     }
 };
