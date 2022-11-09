@@ -79,7 +79,7 @@ function ChatbotItemNew({ selectedNode, setSelectedNode }) {
   };
 
   const { values, errors, submitting, handleChange, handleSubmit } = useForm({
-    initialValues: selectedNode,
+    initialValues: {},
     onSubmit: (values) => {
       onSaveData(values);
     },
@@ -91,16 +91,11 @@ function ChatbotItemNew({ selectedNode, setSelectedNode }) {
       <ChatbotItemWrapper>
         <SubTitle>추가할 NODE 정보</SubTitle>
         <ChatbotItemArea onSubmit={handleSubmit}>
-          <ChatbotItemFormTextNm>parentId</ChatbotItemFormTextNm>
-          <ChatbotItemInput
-            type="text"
-            name="id"
-            value={values.id || id || ""}
-            onChange={handleChange}
-            className={errors.id && "errorInput"}
-            placeholder="id"
-          />
-          <ChatbotItemFormTextNm>optnNm</ChatbotItemFormTextNm>
+          <ChatbotItemFormTextNm>parent - Id</ChatbotItemFormTextNm>
+          <ChatbotItemInput type="text" value={id || ""} disabled />
+          <ChatbotItemFormTextNm>parent - Label</ChatbotItemFormTextNm>
+          <ChatbotItemInput type="text" value={optnNm || ""} disabled />
+          <ChatbotItemFormTextNm>Label</ChatbotItemFormTextNm>
           <ChatbotItemInput
             type="text"
             name="optnNm"
