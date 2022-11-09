@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import palette from "../../assets/palette";
 
-const StyledButton = styled.button`
+const StyledButton = styled.button.attrs((props) => props)`
   border: none;
   border-radius: 4px;
   font-size:1rem;
@@ -11,11 +11,11 @@ const StyledButton = styled.button`
   color:${palette.white};
   outline:none;
   cursor:pointer;
-  background : ${palette.blue[5]};
+  background : ${(props) => props.buttonBackground || palette.blue[5]};
   &:hover {
-    background : ${palette.blue[4]};
+    background :  ${(props) => props.buttonHoverBackground || palette.blue[4]};
   }
-  width:100%;
+  width: ${(props) => props.buttonWidth || "100%"};
   text-align: center;
 `;
 

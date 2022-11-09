@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ChatbotTree from "./ChatbotTree";
 import styled from "styled-components";
 import ChatbotItem from "./ChatbotItem";
+import ChatbotItemNew from "./ChatbotItemNew";
 import useSWR from "swr";
 import fetcher from "../../utils/fetcher";
 import Loading from "../common/Loading";
@@ -11,18 +12,34 @@ const ManageChatbotArea = styled.div`
   height: 100%;
 `;
 
-function ManageChatbot() {
-  const { data, error, loading } = useSWR("/chat/botMessage/1", fetcher, {
-    refreshInterval: 50000, // wow...
-    revalidateOnFocus: true,
-  });
+const ChatbotItemWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-basis: 50%;
+  margin-left: 0.4rem;
+`;
 
-  const [selectedNode, setSelectedNode] = useState("");
+function ManageChatbot() {
+  const { data, error, loading, mutate } = useSWR(
+    "/chat/botMessage/1",
+    fetcher,
+    {
+      refreshInterval: 50000, // wow...
+      revalidateOnFocus: true,
+    }
+  );
+
+  const [selectedNode, setSelectedNode] = useState({});
 
   const onRoomClick = (node) => {
-    console.log(node);
     setSelectedNode(node);
   };
+
+  useEffect(() => {
+    console.log(selectedNode);
+    mutate();
+    return () => {};
+  }, [selectedNode]);
 
   return (
     <>
@@ -32,7 +49,16 @@ function ManageChatbot() {
         ) : (
           <ChatbotTree onRoomClick={onRoomClick} data={data} />
         )}
-        <ChatbotItem node={selectedNode} />
+        <ChatbotItemWrapper>
+          <ChatbotItem
+            selectedNode={selectedNode}
+            setSelectedNode={setSelectedNode}
+          />
+          <ChatbotItemNew
+            selectedNode={selectedNode}
+            setSelectedNode={setSelectedNode}
+          ></ChatbotItemNew>
+        </ChatbotItemWrapper>
       </ManageChatbotArea>
     </>
   );
