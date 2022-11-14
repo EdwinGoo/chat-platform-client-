@@ -1,17 +1,22 @@
 import React from "react";
-import BeatLoader from "react-spinners/BeatLoader";
+import BarLoader from "react-spinners/BarLoader";
+import styled from "styled-components";
+import palette from "../../assets/palette";
+
+const LoadingWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+`;
 
 function Loading() {
   return (
-    <div className="contentWrap">
-      <div
-        style={{
-          position: "relative",
-        }}
-      >
-        <BeatLoader size={8} color="#5b9fe6" />
-      </div>
-    </div>
+    <LoadingWrapper>
+      <BarLoader width={100} color={palette.navy}></BarLoader>
+    </LoadingWrapper>
   );
 }
 

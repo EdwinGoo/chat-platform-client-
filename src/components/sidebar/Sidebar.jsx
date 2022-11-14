@@ -62,22 +62,7 @@ function Sidebar() {
   return (
     <>
       <SidebarWrapper>
-        {/* <Title>
-          <p>
-            HELPER LOGO - {"  "}
-            <span role="img" aria-label="writing hand">
-              ✋
-            </span>
-          </p>
-        </Title> */}
         <RouterWrapper>
-          <NavLink
-            to="/dashboard"
-            className={({ isActive }) => (isActive ? "link-active" : "link")}
-          >
-            <DashboardIcon />
-            <LinkNm>Dashboard</LinkNm>
-          </NavLink>
           <NavLink
             to="/chat"
             className={({ isActive }) => (isActive ? "link-active" : "link")}

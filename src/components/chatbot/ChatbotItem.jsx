@@ -101,7 +101,7 @@ function ChatbotItem({ selectedNode, setSelectedNode }) {
           className={errors.id && "errorInput"}
           placeholder="id"
         />
-        <ChatbotItemFormTextNm>optnNm</ChatbotItemFormTextNm>
+        <ChatbotItemFormTextNm>LABEL</ChatbotItemFormTextNm>
         <ChatbotItemInput
           type="text"
           name="optnNm"

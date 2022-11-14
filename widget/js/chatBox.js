@@ -66,9 +66,7 @@ var help__main__html = `
         </div>
     </div>
     
-    <div class="help__button">
-        <button>HELP BUTTON</button>
-    </div>
+        <button class="help__button">HELP</button>
 </div>
 `;
 
